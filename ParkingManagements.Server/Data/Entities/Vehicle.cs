@@ -1,8 +1,9 @@
-﻿using ParkingManagement.Data.Entities.Enums;
+﻿using ParkingManagements.Data.Entities;
+using ParkingManagements.Data.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Sockets;
 
-namespace ParkingManagement.Data.Entities
+namespace ParkingManagements.Data.Entities
 {
     public class Vehicle : BaseEntity
     {

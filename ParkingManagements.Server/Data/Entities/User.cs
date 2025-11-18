@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ParkingManagement.Data.Entities.Enums;
+using ParkingManagements.Data.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace ParkingManagement.server.Data.Entities
+namespace ParkingManagements.server.Data.Entities
 {
     public class User : IdentityUser
     {

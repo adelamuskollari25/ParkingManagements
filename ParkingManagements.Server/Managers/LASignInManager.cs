@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using ParkingManagement.server.Data.Entities;
+using ParkingManagements.server.Data.Entities;
 
 namespace Lidhja.Administrata.Server.Managers
 {

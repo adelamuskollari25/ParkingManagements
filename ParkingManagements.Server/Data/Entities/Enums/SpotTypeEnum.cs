@@ -1,4 +1,4 @@
-﻿namespace ParkingManagement.Data.Entities.Enums
+﻿namespace ParkingManagements.Data.Entities.Enums
 {
     public enum SpotType
     {
