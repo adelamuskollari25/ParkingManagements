@@ -1,11 +1,18 @@
 <div class="login-container1">
   <div class="login-main">
       <h1>LOGIN</h1>
+      <!-- Error message -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
       <div class="login-form">
-        <form class="input-form">
-          <input type="email" id="email" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" placeholder="EMAIL" size="30" value="" required/>
-          <input type="password" id="password" placeholder="PASSWORD" required/>
-          <input type="submit" value="LOGIN"/>
+        <form class="input-form" (ngSubmit)="onLogIn()">
+          <input type="email" [(ngModel)]="email" id="email" name="email" pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$" placeholder="EMAIL" size="30" value="" required/>
+          <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="PASSWORD" required/>
+          <button type="submit" class="login-btn">
+            Login
+          </button>
         </form>
       </div>
   </div>
