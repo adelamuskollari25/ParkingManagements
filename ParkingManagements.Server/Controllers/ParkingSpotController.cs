@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ParkingManagements.Data.Entities.Enums;
-using ParkingManagements.Server.Interfaces;
+using ParkingManagements.Server.Common;
+using ParkingManagements.Server.Common.Sortings;
 using ParkingManagements.Server.DTOs.ParkingSpot;
+using ParkingManagements.Server.Interfaces;
 
 [ApiController]
 [Route("api/lots/{lotId}/[controller]")]
@@ -15,9 +17,10 @@ public class ParkingSpotController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ParkingSpotDTO>>> GetAll(Guid lotId)
+    public async Task<ActionResult<PagedResult<ParkingSpotDTO>>> GetAll(Guid lotId, [FromQuery] ParkingSpotFilterParams filters)
     {
-        var spots = await _spotService.GetSpotsByLotAsync(lotId);
+        filters ??= new ParkingSpotFilterParams();
+        var spots = await _spotService.GetSpotsByLotAsync(lotId, filters);
         return Ok(spots);
     }
 

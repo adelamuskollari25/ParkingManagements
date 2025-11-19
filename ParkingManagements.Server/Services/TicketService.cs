@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ParkingManagements.Data;
 using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
+using ParkingManagements.Server.Common;
+using ParkingManagements.Server.Common.Sortings;
 using ParkingManagements.Server.DTOs.Ticket;
 using ParkingManagements.Server.Interfaces;
 using ParkingManagements.Server.Services.Helpers;
@@ -23,12 +26,11 @@ namespace ParkingManagements.Server.Services
         public async Task<TicketDTO> CreateAsync(TicketCreateDTO dto)
         {
             var spot = await _context.ParkingSpots.FindAsync(dto.SpotId);
-
             if (spot == null)
-                throw new Exception("Spot not found.");
+                throw new ServiceException("spot_not_found", "Spot not found.", 404);
 
             if (spot.Status != SpotStatus.Free)
-                throw new Exception("Spot is not available.");
+                throw new ServiceException("spot_not_available", "Spot is not available.", 409);
 
             var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(v => v.Plate == dto.PlateNumber);
@@ -64,7 +66,7 @@ namespace ParkingManagements.Server.Services
                 .FirstOrDefaultAsync(t => t.Id == ticketId);
 
             if (ticket == null)
-                throw new Exception("Ticket not found.");
+                throw new ServiceException("ticket_not_found", "Ticket not found.", 404);
 
             var exitTime = DateTime.UtcNow;
 
@@ -73,12 +75,10 @@ namespace ParkingManagements.Server.Services
                 .OrderByDescending(t => t.EffectiveFrom)
                 .FirstAsync();
 
-            var amount = TariffCalculator.Calculate(tariff, ticket.EntryTime, exitTime);
-            ticket.ComputedAmount = amount;
+            ticket.ComputedAmount = TariffCalculator.Calculate(tariff, ticket.EntryTime, exitTime);
 
             return _mapper.Map<TicketDTO>(ticket);
         }
-
 
         public async Task<TicketDTO> CloseAndPayAsync(TicketCloseDTO dto)
         {
@@ -87,26 +87,19 @@ namespace ParkingManagements.Server.Services
                 .FirstOrDefaultAsync(t => t.Id == dto.TicketId);
 
             if (ticket == null)
-                throw new Exception("Ticket not found.");
+                throw new ServiceException("ticket_not_found", "Ticket not found.", 404);
 
             if (ticket.Status == TicketStatus.Closed)
-                throw new Exception("Ticket already closed.");
+                throw new ServiceException("ticket_already_closed", "Ticket already closed.", 409);
 
             ticket.ExitTime = DateTime.UtcNow;
 
             var tariff = await _context.Tariffs
                 .FirstAsync(t => t.LotId == ticket.LotId);
 
-            decimal amount;
-
-            if (dto.IsLostTicket && tariff.LostTicketFee.HasValue)
-            {
-                amount = tariff.LostTicketFee.Value;
-            }
-            else
-            {
-                amount = TariffCalculator.Calculate(tariff, ticket.EntryTime, ticket.ExitTime.Value);
-            }
+            decimal amount = dto.IsLostTicket && tariff.LostTicketFee.HasValue
+                ? tariff.LostTicketFee.Value
+                : TariffCalculator.Calculate(tariff, ticket.EntryTime, ticket.ExitTime.Value);
 
             ticket.ComputedAmount = amount;
             ticket.Status = TicketStatus.Closed;
@@ -131,15 +124,14 @@ namespace ParkingManagements.Server.Services
             return _mapper.Map<TicketDTO>(ticket);
         }
 
-
-        public async Task<IEnumerable<TicketDTO>> SearchAsync(TicketSearchDTO filters)
+        public async Task<PagedResult<TicketDTO>> SearchAsync(TicketFilterParams filters)
         {
             var query = _context.Tickets
                 .Include(t => t.Vehicle)
                 .AsQueryable();
 
             if (filters.Status.HasValue)
-                query = query.Where(t => t.Status == filters.Status);
+                query = query.Where(t => t.Status == filters.Status.Value);
 
             if (!string.IsNullOrWhiteSpace(filters.Plate))
                 query = query.Where(t => t.Vehicle.Plate.Contains(filters.Plate));
@@ -151,14 +143,43 @@ namespace ParkingManagements.Server.Services
                 query = query.Where(t => t.SpotId == filters.SpotId);
 
             if (filters.From.HasValue)
-                query = query.Where(t => t.EntryTime >= filters.From);
+                query = query.Where(t => t.EntryTime >= filters.From.Value);
 
             if (filters.To.HasValue)
-                query = query.Where(t => t.EntryTime <= filters.To);
+                query = query.Where(t => t.EntryTime <= filters.To.Value);
 
-            var tickets = await query.ToListAsync();
+            query = filters.SortBy?.ToLower() switch
+            {
+                "entrytime" => filters.SortDescending ? query.OrderByDescending(t => t.EntryTime) : query.OrderBy(t => t.EntryTime),
+                "exittime" => filters.SortDescending ? query.OrderByDescending(t => t.ExitTime) : query.OrderBy(t => t.ExitTime),
+                "status" => filters.SortDescending ? query.OrderByDescending(t => t.Status) : query.OrderBy(t => t.Status),
+                "amount" => filters.SortDescending ? query.OrderByDescending(t => t.ComputedAmount) : query.OrderBy(t => t.ComputedAmount),
+                "plate" => filters.SortDescending ? query.OrderByDescending(t => t.Vehicle.Plate) : query.OrderBy(t => t.Vehicle.Plate),
+                _ => query.OrderBy(t => t.EntryTime)
+            };
 
-            return _mapper.Map<IEnumerable<TicketDTO>>(tickets);
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)filters.PageSize);
+
+            var items = await query
+                .Skip((filters.PageNumber - 1) * filters.PageSize)
+                .Take(filters.PageSize)
+                .ProjectTo<TicketDTO>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+
+            return new PagedResult<TicketDTO>
+            {
+                Data = items,
+                Meta = new PaginationMeta
+                {
+                    CurrentPage = filters.PageNumber,
+                    PageSize = filters.PageSize,
+                    TotalCount = totalCount,
+                    TotalPages = totalPages,
+                    HasPrevious = filters.PageNumber > 1,
+                    HasNext = filters.PageNumber < totalPages
+                }
+            };
         }
     }
 }

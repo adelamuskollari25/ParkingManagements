@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ParkingManagements.Server.Common;
 
 [ApiController]
 [Route("api/reporting")]
@@ -12,16 +13,16 @@ public class ReportingController : ControllerBase
     }
 
     [HttpGet("lotsnapshot")]
-    public async Task<IActionResult> GetLotSnapshot()
+    public async Task<IActionResult> GetLotSnapshot([FromQuery] PaginationParams pagination)
     {
-        var result = await _reportingService.GetPerLotSnapshotAsync();
+        var result = await _reportingService.GetPerLotSnapshotAsync(pagination);
         return Ok(result);
     }
 
     [HttpGet("dailyrevenue")]
-    public async Task<IActionResult> GetDailyRevenue([FromQuery] DateTime from, [FromQuery] DateTime to)
+    public async Task<IActionResult> GetDailyRevenue([FromQuery] DateTime from, [FromQuery] DateTime to, [FromQuery] PaginationParams pagination)
     {
-        var result = await _reportingService.GetDailyRevenueSummaryAsync(from, to);
+        var result = await _reportingService.GetDailyRevenueSummaryAsync(from, to, pagination);
         return Ok(result);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkingManagements.Server.Interfaces;
+using ParkingManagements.Server.Common;
 using ParkingManagements.Server.DTOs.ParkingLot;
+using ParkingManagements.Server.Interfaces;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -14,9 +15,9 @@ public class ParkingLotController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ParkingLotDTO>>> GetAll()
+    public async Task<ActionResult<PagedResult<ParkingLotDTO>>> GetAll([FromQuery] PaginationParams pagination)
     {
-        var lots = await _lotService.GetAllLotsAsync();
+        var lots = await _lotService.GetAllLotsAsync(pagination);
         return Ok(lots);
     }
 

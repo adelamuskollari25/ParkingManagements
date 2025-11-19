@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ParkingManagements.Server.Common;
 using ParkingManagements.Server.Interfaces;
 
 namespace ParkingManagements.Server.Controllers
@@ -15,9 +16,9 @@ namespace ParkingManagements.Server.Controllers
         }
 
         [HttpGet("ticket/{ticketId}")]
-        public async Task<IActionResult> GetByTicket(Guid ticketId)
+        public async Task<IActionResult> GetByTicket(Guid ticketId, [FromQuery] PaginationParams pagination)
         {
-            var result = await _paymentService.GetPaymentsForTicketAsync(ticketId);
+            var result = await _paymentService.GetPaymentsForTicketAsync(ticketId, pagination);
             return Ok(result);
         }
     }

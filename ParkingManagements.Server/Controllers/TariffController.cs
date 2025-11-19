@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ParkingManagements.Server.Interfaces;
+using ParkingManagements.Server.Common;
 using ParkingManagements.Server.DTOs.Tariff;
+using ParkingManagements.Server.Interfaces;
 
 [ApiController]
 [Route("api/lots/{lotId}/[controller]")]
@@ -22,9 +23,9 @@ public class TariffController : ControllerBase
     }
 
     [HttpGet("history")]
-    public async Task<ActionResult<IEnumerable<TariffDTO>>> GetHistory(Guid lotId)
+    public async Task<ActionResult<PagedResult<TariffDTO>>> GetHistory(Guid lotId, [FromQuery] PaginationParams pagination)
     {
-        var history = await _tariffService.GetTariffHistoryAsync(lotId);
+        var history = await _tariffService.GetTariffHistoryAsync(lotId, pagination);
         return Ok(history);
     }
 

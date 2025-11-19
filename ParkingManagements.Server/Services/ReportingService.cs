@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ParkingManagements.Data;
 using ParkingManagements.Data.Entities.Enums;
+using ParkingManagements.Server.Common;
 using ParkingManagements.Server.DTOs.Metrics___Reportings;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 public class ReportingService : IReportingService
 {
@@ -13,8 +13,7 @@ public class ReportingService : IReportingService
         _context = context;
     }
 
-
-    public async Task<IEnumerable<LotSnapshotDTO>> GetPerLotSnapshotAsync()
+    public async Task<PagedResult<LotSnapshotDTO>> GetPerLotSnapshotAsync(PaginationParams pagination)
     {
         var today = DateTime.UtcNow.Date;
 
@@ -48,11 +47,30 @@ public class ReportingService : IReportingService
             });
         }
 
-        return snapshots;
+        var totalCount = snapshots.Count;
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pagination.PageSize);
+
+        var pagedItems = snapshots
+            .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+            .Take(pagination.PageSize)
+            .ToList();
+
+        return new PagedResult<LotSnapshotDTO>
+        {
+            Data = pagedItems,
+            Meta = new PaginationMeta
+            {
+                CurrentPage = pagination.PageNumber,
+                PageSize = pagination.PageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                HasPrevious = pagination.PageNumber > 1,
+                HasNext = pagination.PageNumber < totalPages
+            }
+        };
     }
 
-
-    public async Task<IEnumerable<DailyRevenueDTO>> GetDailyRevenueSummaryAsync(DateTime from, DateTime to)
+    public async Task<PagedResult<DailyRevenueDTO>> GetDailyRevenueSummaryAsync(DateTime from, DateTime to, PaginationParams pagination)
     {
         var payments = await _context.Payments
             .Include(p => p.Ticket)
@@ -69,6 +87,26 @@ public class ReportingService : IReportingService
             .OrderBy(d => d.Date)
             .ToList();
 
-        return grouped;
+        var totalCount = grouped.Count;
+        var totalPages = (int)Math.Ceiling(totalCount / (double)pagination.PageSize);
+
+        var pagedItems = grouped
+            .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+            .Take(pagination.PageSize)
+            .ToList();
+
+        return new PagedResult<DailyRevenueDTO>
+        {
+            Data = pagedItems,
+            Meta = new PaginationMeta
+            {
+                CurrentPage = pagination.PageNumber,
+                PageSize = pagination.PageSize,
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                HasPrevious = pagination.PageNumber > 1,
+                HasNext = pagination.PageNumber < totalPages
+            }
+        };
     }
 }

@@ -1,10 +1,11 @@
-﻿using ParkingManagements.Server.DTOs.Payment;
+﻿using ParkingManagements.Server.Common;
+using ParkingManagements.Server.DTOs.Payment;
 
 namespace ParkingManagements.Server.Interfaces
 {
     public interface IPaymentService
     {
-        Task<IEnumerable<PaymentDTO>> GetPaymentsForTicketAsync(Guid ticketId);
+        Task<PagedResult<PaymentDTO>> GetPaymentsForTicketAsync(Guid ticketId, PaginationParams pagination);
 
     }
 }
