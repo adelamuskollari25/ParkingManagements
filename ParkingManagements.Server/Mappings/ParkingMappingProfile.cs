@@ -3,7 +3,9 @@ using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
 using ParkingManagements.Server.DTOs.ParkingLot;
 using ParkingManagements.Server.DTOs.ParkingSpot;
+using ParkingManagements.Server.DTOs.Payment;
 using ParkingManagements.Server.DTOs.Tariff;
+using ParkingManagements.Server.DTOs.Ticket;
 
 public class ParkingMappingProfile : Profile
 {
@@ -26,6 +28,18 @@ public class ParkingMappingProfile : Profile
 
         CreateMap<TariffUpdateDTO, Tariff>().ReverseMap();
         CreateMap<TariffDTO, Tariff>().ReverseMap();
+
+        CreateMap<TicketDTO, Ticket>().ReverseMap();
+        CreateMap<TicketCreateDTO, Ticket>().ReverseMap();
+        CreateMap<TicketCloseDTO, Ticket>().ReverseMap();
+        CreateMap<TicketPreviewExitDTO, Ticket>().ReverseMap();
+        CreateMap<TicketSearchDTO, Ticket>().ReverseMap();
+
+        CreateMap<PaymentDTO, Payment>().ReverseMap();
+
+        CreateMap<VehicleDTO, Vehicle>().ReverseMap();
+
+
     }
 }
 
