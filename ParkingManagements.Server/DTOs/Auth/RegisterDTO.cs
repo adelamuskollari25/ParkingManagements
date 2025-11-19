@@ -17,5 +17,6 @@ namespace ParkingManagements.Server.DTOs.Auth
         [Required]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+        public UserRole Role { get; set; } 
     }
 }

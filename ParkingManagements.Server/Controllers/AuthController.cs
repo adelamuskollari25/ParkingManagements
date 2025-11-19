@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ParkingManagements.Data.Entities.Enums;
 using ParkingManagements.server.Data.Entities;
 using ParkingManagements.Server.DTOs;
 using ParkingManagements.Server.DTOs.Auth;
@@ -29,53 +30,6 @@ public class AuthController : ControllerBase
         _jwtSettings = jwtSettings;
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDTO model)
-    {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
-        // Check if user already exists
-        var existingUser = await _userManager.FindByEmailAsync(model.Email);
-        if (existingUser != null)
-        {
-            return BadRequest(new { message = "User with this email already exists" });
-        }
-
-        var user = new User
-        {
-            UserName = model.Email,
-            Email = model.Email 
-        };
-
-        // Create user with hashed password
-        var result = await _userManager.CreateAsync(user, model.Password);
-
-
-        if (result.Succeeded)
-        {
-            _logger.LogInformation("User {Email} registered successfully", model.Email);
-
-            // Optionally assign default role
-            await _userManager.AddToRoleAsync(user, "User");
-
-            // Generate token
-            var roles = await _userManager.GetRolesAsync(user);
-            var token = _tokenService.GenerateToken(user, roles);
-
-            return Ok(new AuthResponseDTO
-            {
-                Token = token,
-                Email = user.Email,
-                UserId = user.Id,
-                ExpiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryInMinutes)
-            });
-        }
-
-        return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
-    }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDTO model)
@@ -92,14 +46,12 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = "Invalid email or password" });
         }
 
-        // Check password
         var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
 
         if (result.Succeeded)
         {
             _logger.LogInformation("User {Email} logged in successfully", model.Email);
 
-            // Generate token
             var roles = await _userManager.GetRolesAsync(user);
             var token = _tokenService.GenerateToken(user, roles);
 
@@ -123,15 +75,9 @@ public class AuthController : ControllerBase
         }
     }
 
-    [HttpPost("logout")]
-    [Authorize]
-    public async Task<IActionResult> Logout()
-    {
-        await _signInManager.SignOutAsync();
-        return Ok(new { message = "Logged out successfully" });
-    }
 
-    [HttpGet("me")]
+
+    [HttpGet("current-user")]
     [Authorize]
     public async Task<IActionResult> GetCurrentUser()
     {

@@ -10,50 +10,56 @@ public static class ApplicationDbContextSeed
     public static async Task SeedAsync(ApplicationDbContext context, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
     {
         await context.Database.MigrateAsync();
- 
-        //if (!await roleManager.RoleExistsAsync("Admin"))
-        //    await roleManager.CreateAsync(new IdentityRole("Admin"));
 
-        //if (!await roleManager.RoleExistsAsync("Attendant"))
-        //    await roleManager.CreateAsync(new IdentityRole("Attendant"));
+        if (!await roleManager.RoleExistsAsync("Admin"))
+            await roleManager.CreateAsync(new IdentityRole("Admin"));
 
-        //// Admin
-        //var adminUser = await userManager.FindByEmailAsync("admin@parking.com");
-        //if (adminUser == null)
-        //{
-        //    adminUser = new User
-        //    {
-        //        UserName = "admin@parking.com",
-        //        Email = "admin@parking.com",
-        //        EmailConfirmed = true
-        //    };
+        if (!await roleManager.RoleExistsAsync("Attendant"))
+            await roleManager.CreateAsync(new IdentityRole("Attendant"));
 
-        //    var result = await userManager.CreateAsync(adminUser, "Admin123!");
-        //    if (!result.Succeeded)
-        //        throw new Exception($"Failed to create Admin user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-        //}
+        if (!await roleManager.RoleExistsAsync("Viewer")) 
+            await roleManager.CreateAsync(new IdentityRole("Viewer"));
 
-        //if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
-        //    await userManager.AddToRoleAsync(adminUser, "Admin");
+        // Admin
+        var adminUser = await userManager.FindByEmailAsync("admin@parking.com");
+        if (adminUser == null)
+        {
+            adminUser = new User
+            {
+                UserName = "admin@parking.com",
+                Email = "admin@parking.com",
+                EmailConfirmed = true,
+                Role = UserRole.Admin
+            };
 
-        //// Attendant
-        //var attendantUser = await userManager.FindByEmailAsync("attendant@parking.com");
-        //if (attendantUser == null)
-        //{
-        //    attendantUser = new User
-        //    {
-        //        UserName = "attendant@parking.com",
-        //        Email = "attendant@parking.com",
-        //        EmailConfirmed = true
-        //    };
+            var result = await userManager.CreateAsync(adminUser, "Admin123!");
+            if (!result.Succeeded)
+                throw new Exception($"Failed to create Admin user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+        }
 
-        //    var result = await userManager.CreateAsync(attendantUser, "Attendant123!");
-        //    if (!result.Succeeded)
-        //        throw new Exception($"Failed to create Attendant user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
-        //}
+        if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+            await userManager.AddToRoleAsync(adminUser, "Admin");
 
-        //if (!await userManager.IsInRoleAsync(attendantUser, "Attendant"))
-        //    await userManager.AddToRoleAsync(attendantUser, "Attendant");
+        // Attendant
+        var attendantUser = await userManager.FindByEmailAsync("attendant@parking.com");
+        if (attendantUser == null)
+        {
+            attendantUser = new User
+            {
+                UserName = "attendant@parking.com",
+                Email = "attendant@parking.com",
+                EmailConfirmed = true,
+                Role = UserRole.Attendant
+            };
+
+            var result = await userManager.CreateAsync(attendantUser, "Attendant123!");
+            if (!result.Succeeded)
+                throw new Exception($"Failed to create Attendant user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+        }
+
+        if (!await userManager.IsInRoleAsync(attendantUser, "Attendant"))
+            await userManager.AddToRoleAsync(attendantUser, "Attendant");
+
         // Seed Parking Lot
         if (!context.ParkingLots.Any())
         {
