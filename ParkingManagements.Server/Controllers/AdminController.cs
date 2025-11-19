@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
-using ParkingManagements.server.Data.Entities;
-using ParkingManagements.Server.DTOs;
+using ParkingManagements.Server.Common;
 using ParkingManagements.Server.DTOs.Auth;
-using System.ComponentModel.DataAnnotations;
+using ParkingManagements.Server.Interfaces;
+using ParkingManagements.Server.Services;
 
 namespace ParkingManagements.Server.Controllers
 {
@@ -15,100 +14,56 @@ namespace ParkingManagements.Server.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IAdminService _adminService;
 
-        public AdminController(UserManager<User> userManager)
+        public AdminController(IAdminService adminService)
         {
-            _userManager = userManager;
+            _adminService = adminService;
         }
 
-    
         [HttpPost("create")]
         public async Task<IActionResult> CreateUser([FromBody] RegisterDTO model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (model.Role != UserRole.Attendant && model.Role != UserRole.Viewer)
-                return BadRequest(new { message = "Admin can only create Attendant or Viewer." });
 
-            var existingUser = await _userManager.FindByEmailAsync(model.Email);
-            if (existingUser != null)
-                return BadRequest(new { message = "User with this email already exists." });
-
-            var user = new User
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                Role = model.Role,
-                EmailConfirmed = true
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
-
-            await _userManager.AddToRoleAsync(user, model.Role.ToString());
-
+            var user = await _adminService.CreateUserAsync(model);
             return Ok(new
             {
                 message = "User created successfully",
-                userId = user.Id,
+                userId = user.UserId,
                 email = user.Email,
-                role = user.Role.ToString()
+                role = user.Role
             });
-        }
 
+        }
 
         [HttpPost("deactivate/{userId}")]
         public async Task<IActionResult> DeactivateUser(Guid userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-                return NotFound(new { message = "User not found" });
 
-            user.LockoutEnabled = true;
-            user.LockoutEnd = DateTimeOffset.UtcNow.AddYears(100); 
-            await _userManager.UpdateAsync(user);
-
+            await _adminService.DeactivateUserAsync(userId);
             return Ok(new { message = "User deactivated successfully" });
-        }
 
+        }
 
         [HttpPost("reactivate/{userId}")]
         public async Task<IActionResult> ReactivateUser(Guid userId)
         {
-            var user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == null)
-                return NotFound(new { message = "User not found" });
 
-            user.LockoutEnd = null;
-            user.LockoutEnabled = false;
-            await _userManager.UpdateAsync(user);
-
+            await _adminService.ReactivateUserAsync(userId);
             return Ok(new { message = "User reactivated successfully" });
-        }
 
+        }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = _userManager.Users.ToList();
+            var users = await _adminService.GetAllUsersAsync();
+            return Ok(users);
 
-            var userList = new List<object>();
-            foreach (var user in users)
-            {
-                var roles = await _userManager.GetRolesAsync(user);
-                userList.Add(new
-                {
-                    userId = user.Id,
-                    email = user.Email,
-                    roles = roles,
-                    isLockedOut = user.LockoutEnabled && user.LockoutEnd > DateTimeOffset.UtcNow
-                });
-            }
-
-            return Ok(userList);
         }
     }
+
 }

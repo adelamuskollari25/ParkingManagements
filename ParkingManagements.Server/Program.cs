@@ -8,6 +8,7 @@ using ParkingManagements.server.Data.Entities;
 using ParkingManagements.Server.Interfaces;
 using ParkingManagements.Server.Managers;
 using ParkingManagements.Server.Services;
+using ParkingManagements.Server.Services.ParkingManagements.Server.Services;
 using System.Text;
 
 
@@ -85,6 +86,8 @@ builder.Services.AddScoped<ITariffService, TariffService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IReportingService, ReportingService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 
 // Controllers
@@ -164,6 +167,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Parking Management API v1");
     });
 }
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 

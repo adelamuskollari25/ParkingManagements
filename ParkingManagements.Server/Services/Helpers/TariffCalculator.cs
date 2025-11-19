@@ -1,7 +1,5 @@
 ﻿namespace ParkingManagements.Server.Services.Helpers
 {
-    using ParkingManagements.Data.Entities;
-
     public static class TariffCalculator
     {
         public static decimal Calculate(Tariff tariff, DateTime entry, DateTime exit)
