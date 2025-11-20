@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ParkingManagement.Data.Entities
+namespace ParkingManagements.Data.Entities
 {
     public abstract class BaseEntity
     {

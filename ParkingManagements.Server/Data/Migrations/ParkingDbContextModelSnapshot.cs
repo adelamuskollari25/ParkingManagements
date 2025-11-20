@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ParkingManagement.Data;
+using ParkingManagements.Data;
 
 #nullable disable
 
@@ -184,14 +184,13 @@ namespace ParkingManagement.Migrations
                     b.ToTable("ParkingLots");
                 });
 
-            modelBuilder.Entity("ParkingManagement.Data.Entities.Vehicle", b =>
+            modelBuilder.Entity("ParkingManagements.Data.Entities.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
@@ -201,7 +200,7 @@ namespace ParkingManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("Type")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -212,7 +211,7 @@ namespace ParkingManagement.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("ParkingManagement.server.Data.Entities.User", b =>
+            modelBuilder.Entity("ParkingManagements.server.Data.Entities.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -228,7 +227,6 @@ namespace ParkingManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -250,7 +248,6 @@ namespace ParkingManagement.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
@@ -446,7 +443,7 @@ namespace ParkingManagement.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ParkingManagement.server.Data.Entities.User", null)
+                    b.HasOne("ParkingManagements.server.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -455,7 +452,7 @@ namespace ParkingManagement.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ParkingManagement.server.Data.Entities.User", null)
+                    b.HasOne("ParkingManagements.server.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -470,7 +467,7 @@ namespace ParkingManagement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ParkingManagement.server.Data.Entities.User", null)
+                    b.HasOne("ParkingManagements.server.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -479,7 +476,7 @@ namespace ParkingManagement.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ParkingManagement.server.Data.Entities.User", null)
+                    b.HasOne("ParkingManagements.server.Data.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -533,7 +530,7 @@ namespace ParkingManagement.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ParkingManagement.Data.Entities.Vehicle", "Vehicle")
+                    b.HasOne("ParkingManagements.Data.Entities.Vehicle", "Vehicle")
                         .WithMany("Tickets")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -555,7 +552,7 @@ namespace ParkingManagement.Migrations
                     b.Navigation("Tickets");
                 });
 
-            modelBuilder.Entity("ParkingManagement.Data.Entities.Vehicle", b =>
+            modelBuilder.Entity("ParkingManagements.Data.Entities.Vehicle", b =>
                 {
                     b.Navigation("Tickets");
                 });

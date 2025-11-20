@@ -1,44 +1,39 @@
-﻿using AutoMapper.Execution;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingManagement.server.Data.Entities;
-using ParkingManagement.server.DTOs;
+using ParkingManagements.Server.DTOs.Auth;
+using ParkingManagements.Server.Interfaces;
+using ParkingManagements.Server.Services;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace ParkingManagements.Server.Controllers
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-    private readonly ILogger<AuthController> _logger;
-
-    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<AuthController> logger)
+    [ApiController]
+    [Route("api/auth")]
+    public class AuthController : ControllerBase
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _logger = logger;
+        private readonly IAuthService _authService;
+
+        public AuthController(IAuthService authService)
+        {
+            _authService = authService;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var authResponse = await _authService.LoginAsync(model);
+            return Ok(authResponse);
+        }
+
+        [HttpGet("current-user")]
+        [Authorize]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var user = await _authService.GetCurrentUserAsync(User);
+            return Ok(user);
+        }
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginDTO model)
-    {
-        var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user == null)
-        {
-            _logger.LogWarning("Login failed for email {Email}: user not found", model.Email);
-            return Unauthorized();
-        }
-
-        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-        if (result.Succeeded)
-        {
-            _logger.LogInformation("User {Email} logged in successfully", model.Email);
-            return Ok(new { message = "Login successful" });
-        }
-        else
-        {
-            _logger.LogWarning("Login failed for email {Email}: invalid password", model.Email);
-            return Unauthorized();
-        }
-    }
 }

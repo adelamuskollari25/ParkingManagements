@@ -1,4 +1,4 @@
-﻿namespace ParkingManagement.server.DTOs
+﻿namespace ParkingManagements.Server.DTOs.Auth
 {
     public class LoginDTO
     {

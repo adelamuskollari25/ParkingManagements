@@ -19,9 +19,12 @@
 
 		<!-- Identity -->
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
+	
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+
 
 		<!-- AutoMapper -->
-		<PackageReference Include="AutoMapper" Version="15.1.0" />
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
 
 		<!-- Logging -->

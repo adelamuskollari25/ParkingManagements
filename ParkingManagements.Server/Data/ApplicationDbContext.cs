@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ParkingManagement.Data.Entities;
-using ParkingManagement.server.Data.Entities;
+using ParkingManagements.Data.Entities;
+using ParkingManagements.server.Data.Entities;
 
-namespace ParkingManagement.Data
+namespace ParkingManagements.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
     {
