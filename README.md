@@ -12,7 +12,7 @@ The following software is required to run the backend:
 
 - .NET 8 SDK  
 - SQL Server  
-- Optional: Node.js & Angular (for frontend client)
+- Node.js & Angular (for frontend client)
 
 ---
 
