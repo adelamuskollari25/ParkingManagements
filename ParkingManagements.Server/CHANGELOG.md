@@ -1,8 +1,16 @@
-This file explains how Visual Studio created the project.
+# API Contract Changelog
 
-The following steps were used to generate this project:
-- Create new ASP\.NET Core Web API project.
-- Update project file to add a reference to the frontend project and set SPA properties.
-- Update `launchSettings.json` to register the SPA proxy as a startup assembly.
-- Add project to the startup projects list.
-- Write this file.
+This file documents changes to request/response models, routes, or authentication.
+
+## [1.1.0] - 2025-11-21
+### Added
+- `/health/live` and `/health/ready` endpoints for liveness/readiness.
+- `X-Correlation-ID` header included in all API responses.
+- Swagger documentation (`/swagger` + `/swagger/v1/swagger.json`).
+
+### Changed
+- Error responses now include `correlationId` in JSON.
+- ParkingLot GET `/api/ParkingLot/{id}` returns structured error format when not found.
+
+## [1.0.0] - 2025-11-18
+- Initial API release with authentication, parking management, tickets, payments, and reporting endpoints.

@@ -93,6 +93,8 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 // Controllers
 builder.Services.AddControllers();
 
+builder.Services.AddHealthChecks();
+
 // Swagger with JWT
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -168,6 +170,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<CorrelationIdMiddleware>();
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
@@ -176,6 +179,9 @@ app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health/live");      
+app.MapHealthChecks("/health/ready");
 
 app.MapControllers();
 app.MapFallbackToFile("/index.html");
