@@ -9,5 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./dashboard.scss'],
 })
 export class Dashboard {
-
+  //get date
+  today: Date = new Date();
 }

@@ -1,0 +1,59 @@
+.dashboardTitleContainer {
+  text-align: center;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.mainTabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.spots-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.spotStatusLegend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+#spotStatusLegendColorFree {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+}
+
+#spotStatusLegendColorUnavailable {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: gray;
+}
+
+#spotStatusLegendColorOccupied {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+}
