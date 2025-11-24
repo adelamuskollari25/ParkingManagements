@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.scss'],
 })
 export class Dashboard {
+
   //get date
   today: Date = new Date();
   greeting: string = '';
   icon: string = '';
+
+  onClickButton() {
+    //
+  }
 
   ngOnInit() {
     this.setGreeting();
