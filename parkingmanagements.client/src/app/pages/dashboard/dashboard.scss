@@ -9,9 +9,38 @@
   padding: 0 10px;
 }
 
+// dashboard tabs style
 .mainTabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 10px;
+  margin-top: 50px;
+}
+
+.card {
+  min-width: 220px;
+  align-self: center;
+  justify-self: center;
+  border: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.5s;
+
+  &:hover {
+    background-color: gray;
+  }
+
+  h4, p {
+    text-align: center;
+  }
+}
+
+// parking spot overview style
+.parking-grid {
+  margin-top: 50px;
+
+  h4 {
+    padding: 0 10px;
+  }
 }
 
 .spots-grid {
@@ -19,6 +48,32 @@
   grid-template-columns: repeat(5, 1fr);
 }
 
+.spot {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.spotStatus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.free {
+  background-color: green;
+}
+
+.unavailable {
+  background-color: gray;
+}
+
+// spot info style
 .spotStatusLegend {
   display: flex;
   flex-direction: row;
@@ -32,6 +87,7 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  margin-top: 30px;
 }
 
 #spotStatusLegendColorFree {

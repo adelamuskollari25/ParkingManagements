@@ -3,7 +3,7 @@
         <h1>PARKING MANAGEMENT DASHBOARD</h1>
     </div>
     <div class="info">
-      <h4 class="greeting">Welcome, John!</h4>
+      <h4 class="greeting"><mat-icon>{{ icon }}</mat-icon> {{ greeting }}</h4>
       <h4 class="dateTime">Today: {{ today | date: 'MMMM d, y' }}</h4>
     </div>
     <div class="mainTabs">
@@ -36,7 +36,19 @@
       <h4>Parking Spots Overview:</h4>
       <div class="spots-grid">
         <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
           <span class="spotStatus"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus free"></span>
           <p class="spotCode">A1</p>
         </div>
         <div class="spot">
@@ -48,7 +60,27 @@
           <p class="spotCode">A1</p>
         </div>
         <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
           <span class="spotStatus"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus free"></span>
+          <p class="spotCode">A1</p>
+        </div>
+        <div class="spot">
+          <span class="spotStatus unavailable"></span>
           <p class="spotCode">A1</p>
         </div>
         <div class="spot">
@@ -60,39 +92,7 @@
           <p class="spotCode">A1</p>
         </div>
         <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
+          <span class="spotStatus unavailable"></span>
           <p class="spotCode">A1</p>
         </div>
       </div>
