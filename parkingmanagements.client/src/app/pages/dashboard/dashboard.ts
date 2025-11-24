@@ -17,10 +17,6 @@ export class Dashboard {
   greeting: string = '';
   icon: string = '';
 
-  onClickButton() {
-    //
-  }
-
   ngOnInit() {
     this.setGreeting();
   }
