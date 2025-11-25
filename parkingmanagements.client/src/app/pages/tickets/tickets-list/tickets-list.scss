@@ -5,61 +5,84 @@
     }
 }
 
-.ticketListGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 15px;
-    padding: 10px;
+.ticketWrapper {
+    width: auto;
 }
 
-// ticket element style
+.ticketListGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+    gap: 15px;
+    justify-content: center;
+    padding-bottom: 80px;
+}
+
+/* ticket element style */
 .ticketElement {
-    max-width: 300px;
-    background-color: #545454;
+    background-color: #616161;
     border-radius: 0.5em;
     cursor: pointer;
     color: white;
 }
 
-// ticket symbol style
+/* ticket symbol style */
 .parkingSymbol {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
 
-    // blue rectangle style
-    .first {
-        display: inline-block;
-        min-width: 60px;
-        min-height: 60px;
-        background-color: #16b2d4;
-        border-radius: 10px;
-        
+    .symbolBox {
+        position: relative;
+        min-width: 70px;
+        min-height: 70px;
+        display: block;
     }
 
-    // white rectangle style
-    .second {
+    /* base styles used by both rectangles */
+    .symbolBox .rectangle {
         position: absolute;
-        top: 0;
-        left: 0;
-        display: inline-block;
-        min-height: 55px;
-        min-width: 55px;
-        background-color: gray;
+        top: 50%;
+        left: 50%;
+        border-radius: 10px;
+        transform: translate(-50%, -50%) rotate(45deg); /* center + rotate */
+        display: block;
+        box-sizing: border-box;
+    }
+
+    /* bottom (blue) rectangle */
+    .symbolBox .first {
+        width: 60px;
+        height: 60px;
+        background-color: #16b2d4;
+        z-index: 1;
+    }
+
+    /* top (white/gray) rectangle; slightly smaller and nudged so you see the blue under it */
+    .symbolBox .second {
+        width: 55px;
+        height: 55px;
+        background-color: transparent;
         border: 1px solid white;
         border-radius: 8px;
+        z-index: 2;
+        transform: translate(-50%, -50%) rotate(45deg);
     }
 
-    // P symbol style
     #parkingSymbolText {
         position: absolute;
-        top: 0;
-        left: 0;
-        color: white;
-        font-weight: bolder;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        margin: 0;
+        font-weight: 700;
         font-size: 32px;
+        color: white;
+        pointer-events: none;
     }
 }
 
-// ticket header style
+/* ticket header style */ 
 .parkingTicketHeader {
     margin: 10px 0;
     border-top: 1px solid black;
@@ -72,8 +95,10 @@
     }
 }
 
-// ticket info style
-// about the car info
+/*
+* ticket info style
+* about the car info
+*/
 .holder {
     display: flex;
     flex-direction: row;
@@ -85,7 +110,7 @@
     }
 }
 
-// date info style
+/* date info style */ 
 .ticketDateData {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -106,7 +131,44 @@
 .ticketStatusHolder {
     h3 {
         text-align: center;
-        color: red;
+        color: white;
         letter-spacing: 5px;
+    }
+}
+
+/* action buttons style */
+.actionButtons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    max-width: inherit;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 1000;
+
+    #entryButton {
+        background-color: green;
+    }
+
+    #exitButton {
+        background-color: red;
+    }
+}
+
+.actionButtons button {
+    flex: 1;  // makes them grow evenly
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    letter-spacing: 5px;
+    cursor: pointer;
+    
+    &:hover {
+        box-shadow: 5px 5px 10px rgb(0, 0, 0);
     }
 }
