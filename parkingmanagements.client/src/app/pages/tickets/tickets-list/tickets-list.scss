@@ -1,0 +1,112 @@
+.ticketListContainer {
+    h1 {
+        text-align: center;
+        letter-spacing: 15px;
+    }
+}
+
+.ticketListGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 15px;
+    padding: 10px;
+}
+
+// ticket element style
+.ticketElement {
+    max-width: 300px;
+    background-color: #545454;
+    border-radius: 0.5em;
+    cursor: pointer;
+    color: white;
+}
+
+// ticket symbol style
+.parkingSymbol {
+    position: relative;
+
+    // blue rectangle style
+    .first {
+        display: inline-block;
+        min-width: 60px;
+        min-height: 60px;
+        background-color: #16b2d4;
+        border-radius: 10px;
+        
+    }
+
+    // white rectangle style
+    .second {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-block;
+        min-height: 55px;
+        min-width: 55px;
+        background-color: gray;
+        border: 1px solid white;
+        border-radius: 8px;
+    }
+
+    // P symbol style
+    #parkingSymbolText {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: white;
+        font-weight: bolder;
+        font-size: 32px;
+    }
+}
+
+// ticket header style
+.parkingTicketHeader {
+    margin: 10px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3, p {
+        margin: 0;
+    }
+}
+
+// ticket info style
+// about the car info
+.holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    p {
+        margin: 2px 0;
+    }
+}
+
+// date info style
+.ticketDateData {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin: 10px 0;
+}
+.date {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+
+    p {
+        margin: 2px 0;
+    }
+}
+
+.ticketStatusHolder {
+    h3 {
+        text-align: center;
+        color: red;
+        letter-spacing: 5px;
+    }
+}
