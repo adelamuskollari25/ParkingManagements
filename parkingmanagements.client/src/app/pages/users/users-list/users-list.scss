@@ -1,0 +1,18 @@
+.userProfileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.userInfoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}

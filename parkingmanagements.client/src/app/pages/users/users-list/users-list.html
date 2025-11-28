@@ -1,1 +1,30 @@
-<p>users-list works!</p>
+<div class="userProfileContainer">
+  <h1 class="profileTitle">PROFILE</h1>
+  <div class="profileWrapper">
+    <div class="userInfoContainer">
+      <div class="userIcon">
+        <mat-icon id="person-icon">person</mat-icon>
+      </div>
+      <div class="userEmail">
+        <p id="textFullName">user&#64;example.com</p>
+      </div>
+      <div class="userRole">
+        <p id="textFullName">Attendant</p>
+      </div>
+      <div class="userStatus">
+        <p id="textFullName">Active</p>
+      </div>
+      <div class="userPassword">
+        <mat-form-field>
+          <input matInput [type]="pwdHide ? 'password' : 'text'" placeholder="Password">
+          <button mat-icon-button matSuffix (click)="pwdHide = !pwdHide" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!pwdHide">
+            <mat-icon>{{pwdHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="buttonHolder">
+      <button type="button">CHANGE</button>
+    </div>
+  </div>
+</div>
