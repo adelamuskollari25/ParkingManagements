@@ -11,9 +11,6 @@
       <div class="userRole">
         <p id="textFullName">Attendant</p>
       </div>
-      <div class="userStatus">
-        <p id="textFullName">Active</p>
-      </div>
       <div class="userPassword">
         <mat-form-field>
           <input matInput [type]="pwdHide ? 'password' : 'text'" placeholder="Password">
@@ -21,6 +18,9 @@
             <mat-icon>{{pwdHide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
+      </div>
+      <div class="userStatus">
+        <p id="textFullName">Active</p>
       </div>
     </div>
     <div class="buttonHolder">
