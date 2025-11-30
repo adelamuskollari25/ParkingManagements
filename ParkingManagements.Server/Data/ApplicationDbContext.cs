@@ -110,7 +110,7 @@ namespace ParkingManagements.Data
         {
             var entries = ChangeTracker.Entries();
             var utcNow = DateTime.UtcNow;
-            string user = _httpContextAccessor.HttpContext!.User.Identity!.Name ?? "System";
+            string user = _httpContextAccessor.HttpContext?.User.Identity?.Name ?? "System";
 
             foreach (var entry in entries)
             {
