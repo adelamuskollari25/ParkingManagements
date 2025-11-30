@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +20,24 @@ export class Login {
   password: string = '';
   errorMessage: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   onLogIn() {
-    if (this.email && this.password) {
-      console.log("Login successful!");
-      this.router.navigate(['/dashboard']);
-    } else {
-      this.errorMessage = 'Please enter username and password'
-    }
+    const loginData = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.login(loginData).subscribe({
+      next: (response: any) => {
+        // save token from backend
+        localStorage.setItem('token', response.token);
+        //redirect
+        this.router.navigate(['/dashboard']);
+      },
+      error: ()=> {
+        this.errorMessage = 'Invalid email or password';
+      }
+    });
   }
 }
