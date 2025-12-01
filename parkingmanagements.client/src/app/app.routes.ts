@@ -9,6 +9,8 @@ import { LotsList } from './pages/lots/lots-list/lots-list';
 import { UsersList } from './pages/users/users-list/users-list';
 import { TicketEntry } from './pages/tickets/ticket-entry/ticket-entry';
 import { TicketExit } from './pages/tickets/ticket-exit/ticket-exit';
+import { authGuard } from './core/guards/auth.guard';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -18,8 +20,16 @@ export const routes: Routes = [
     {path: 'dashboard/ticket/entry-ticket', component: TicketEntry, title: 'Entry Ticket'},
     {path: 'dashboard/ticket/exit-ticket', component: TicketExit, title: 'Exit Ticket'},
     {path: 'dashboard/tariff', component: TariffView, title: 'Tariffs'},
-    {path: 'dashboard/financial-report', component: FinancialReports, title: 'Financial Report'},
-    {path: 'dashboard/spots', component: Spots, title: 'Parking Spots'},
+    {path: 'dashboard/financial-report',
+      component: FinancialReports,
+      title: 'Financial Report',
+      canActivate: [authGuard, roleGuard(['Admin'])]
+    },
+    {path: 'dashboard/spots',
+      component: Spots,
+      title: 'Parking Spots',
+      canActivate: [authGuard, roleGuard(['Admin', 'Attendant', 'Viewer'])]
+    },
     {path: 'dashboard/lots', component: LotsList, title: 'Parking Lots'},
     {path: 'dashboard/user', component: UsersList, title: 'Profile'}
 ];

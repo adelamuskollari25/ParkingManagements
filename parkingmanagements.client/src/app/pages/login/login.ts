@@ -23,15 +23,15 @@ export class Login {
   constructor(private router: Router, private authService: AuthService) {}
 
   onLogIn() {
-    const loginData = {
-      email: this.email,
-      password: this.password
-    };
 
-    this.authService.login(loginData).subscribe({
+    this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
         // save token from backend
         localStorage.setItem('token', response.token);
+        // save role
+        if (response.user?.role) {
+          localStorage.setItem('role', response.user.role);
+      }
         //redirect
         this.router.navigate(['/dashboard']);
       },

@@ -11,7 +11,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any) {
-    return this.http.post(`${this.baseUrl}/auth/login`, model);
+  login(email: string, password: string) {
+    const body = { email, password };
+    return this.http.post<any>(`${this.baseUrl}/auth/login`, body);
+  }
+
+  getRole(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.role || null;
   }
 }
