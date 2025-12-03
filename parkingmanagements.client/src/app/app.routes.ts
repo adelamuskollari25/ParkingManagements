@@ -23,12 +23,12 @@ export const routes: Routes = [
     {path: 'dashboard/financial-report',
       component: FinancialReports,
       title: 'Financial Report',
-      canActivate: [authGuard, roleGuard(['Admin'])]
+      //canActivate: [authGuard, roleGuard(['Admin'])]
     },
     {path: 'dashboard/spots',
       component: Spots,
       title: 'Parking Spots',
-      canActivate: [authGuard, roleGuard(['Admin', 'Attendant', 'Viewer'])]
+      //canActivate: [authGuard, roleGuard(['Admin', 'Attendant', 'Viewer'])]
     },
     {path: 'dashboard/lots', component: LotsList, title: 'Parking Lots'},
     {path: 'dashboard/user', component: UsersList, title: 'Profile'}

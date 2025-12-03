@@ -23,4 +23,8 @@ export class AuthService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.role || null;
   }
+
+  getCurrentUser() {
+    return this.http.get(`${this.baseUrl}/current-user`);
+  }
 }

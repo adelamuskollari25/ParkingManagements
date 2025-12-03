@@ -26,16 +26,25 @@ export class Login {
 
     this.authService.login(this.email, this.password).subscribe({
       next: (response: any) => {
-        // save token from backend
+        // save token
         localStorage.setItem('token', response.token);
         // save role
-        if (response.user?.role) {
-          localStorage.setItem('role', response.user.role);
-      }
+        if (response.role) {
+          localStorage.setItem('role', response.role);
+        }
+        //save email
+        if (response.email) {
+          localStorage.setItem('email', response.email);
+        }
+        //save userId
+        if (response.userId) {
+          localStorage.setItem('userId', response.userId);
+        }
         //redirect
         this.router.navigate(['/dashboard']);
       },
-      error: ()=> {
+      error: (err)=> {
+        console.error('Login error:', err);
         this.errorMessage = 'Invalid email or password';
       }
     });
