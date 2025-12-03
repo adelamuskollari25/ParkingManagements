@@ -1,1 +1,60 @@
-<p>spots works!</p>
+<div class="container">
+  <!-- ERROR -->
+  <div *ngIf="error" class="error">
+    Failed to load parking spots. Please try again later.
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading && !error">
+    Loading parking spots...
+  </div>
+
+  <!-- CONTENT -->
+  <ng-container *ngIf="!loading && !error">
+
+    <!-- HEADER -->
+    <h2>{{ lot?.name }} – Parking Spots</h2>
+    <p class="address">{{ lot?.address }}</p>
+
+    <!-- METRICS -->
+    <div class="metrics" *ngIf="metrics">
+      <div class="metric">
+        <label>Total</label>
+        <span>{{ metrics.totalSpots }}</span>
+      </div>
+      <div class="metric free">
+        <label>Free</label>
+        <span>{{ metrics.freeSpots }}</span>
+      </div>
+      <div class="metric occupied">
+        <label>Occupied</label>
+        <span>{{ metrics.occupiedSpots }}</span>
+      </div>
+      <div class="metric unavailable">
+        <label>Unavailable</label>
+        <span>{{ metrics.unavailableSpots }}</span>
+      </div>
+    </div>
+
+    <!-- SPOTS GRID -->
+    <div class="spots-grid">
+      <div class="spot-card"
+           *ngFor="let spot of spots"
+           [ngClass]="spot.status.toLowerCase()">
+
+        <h3>{{ spot.spotCode }}</h3>
+
+        <p>
+          <strong>Type:</strong> {{ spot.type }}
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="status">{{ spot.status }}</span>
+        </p>
+
+      </div>
+    </div>
+
+  </ng-container>
+</div>

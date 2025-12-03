@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
+import { LogInRequest } from '../../core/models/user';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,12 @@ export class Login {
 
   onLogIn() {
 
-    this.authService.login(this.email, this.password).subscribe({
+    const loginData: LogInRequest = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.login(loginData).subscribe({
       next: (response: any) => {
         // save token
         localStorage.setItem('token', response.token);

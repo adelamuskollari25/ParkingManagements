@@ -4,7 +4,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { TicketsList } from './pages/tickets/tickets-list/tickets-list';
 import { TariffView } from './pages/tariff/tariff-view/tariff-view';
 import { FinancialReports } from './pages/financial-reports/financial-reports';
-import { Spots } from './pages/spots/spots';
+import { SpotsComponent } from './pages/spots/spots';
 import { LotsList } from './pages/lots/lots-list/lots-list';
 import { UsersList } from './pages/users/users-list/users-list';
 import { TicketEntry } from './pages/tickets/ticket-entry/ticket-entry';
@@ -26,7 +26,7 @@ export const routes: Routes = [
       //canActivate: [authGuard, roleGuard(['Admin'])]
     },
     {path: 'dashboard/spots',
-      component: Spots,
+      component: SpotsComponent,
       title: 'Parking Spots',
       //canActivate: [authGuard, roleGuard(['Admin', 'Attendant', 'Viewer'])]
     },
