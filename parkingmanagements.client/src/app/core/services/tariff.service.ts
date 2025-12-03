@@ -20,7 +20,7 @@ export class TariffService {
     return this.http.get<Tariff[]>(`${this.baseUrl}/${lotId}/Tariff/history`);
   }
 
-  createTariff(lotId: string, data: any) {
+  createTariff(lotId: string, data: Partial<Tariff>) {
     return this.http.post<Tariff>(`${this.baseUrl}/${lotId}/Tariff`, data);
   }
 }

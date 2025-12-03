@@ -24,7 +24,7 @@ export class ParkingSpotService {
     return this.http.get<ParkingSpot>(`${this.baseUrl}/${lotId}/ParkingSpot/${spotId}`);
   }
 
-  update(lotId: string, spotId: string, data: any) {
+  update(lotId: string, spotId: string, data: Partial<ParkingSpot>) {
     return this.http.put<ParkingSpot>(`${this.baseUrl}/${lotId}/ParkingSpot/${spotId}`, data);
   }
 
