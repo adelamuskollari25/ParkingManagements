@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { AuthResponse, LogInRequest, User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(email: string, password: string) {
-    const body = { email, password };
-    return this.http.post<any>(`${this.baseUrl}/auth/login`, body);
+  login(data: LogInRequest) {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, data);
   }
 
   getRole(): string | null {
@@ -25,6 +25,6 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    return this.http.get(`${this.baseUrl}/current-user`);
+    return this.http.get<User>(`${this.baseUrl}/current-user`);
   }
 }

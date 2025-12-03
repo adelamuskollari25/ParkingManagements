@@ -10,7 +10,7 @@ export interface DashboardMetrics {
   lastUpdated: Date;
 }
 
-export interface ReveneuSummary {
+export interface RevenueSummary  {
   date: Date;
   totalRevenue: number;
   ticketCount: number;
