@@ -13,7 +13,7 @@ export class ParkingSpotService {
   constructor(private http: HttpClient) { }
 
   getParkingSpots(lotId: string) {
-    return this.http.get<ParkingSpot[]>(`${this.baseUrl}/${lotId}/ParkingSpot`);
+    return this.http.get<{ data: ParkingSpot[] }>(`${this.baseUrl}/${lotId}/ParkingSpot`);
   }
 
   create(lotId: string, data: Partial<ParkingSpot>) {

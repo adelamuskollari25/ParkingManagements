@@ -33,6 +33,7 @@ export class SpotsComponent implements OnInit {
   ngOnInit(): void {
     this.lotId = this.route.snapshot.paramMap.get('lotId')!;
     this.loadData();
+    console.log('LotId from URL =', this.lotId);
   }
 
   loadData() {
@@ -53,8 +54,8 @@ export class SpotsComponent implements OnInit {
 
     // load parking spots
     this.parkingSpotService.getParkingSpots(this.lotId).subscribe({
-      next: spots => {
-        this.spots = spots;
+      next: res => {
+        this.spots = res.data;
         this.loading = false;
       },
       error: err => {

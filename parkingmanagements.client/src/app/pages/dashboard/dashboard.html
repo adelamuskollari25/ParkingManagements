@@ -8,92 +8,72 @@
       <h4 class="dateTime">Today: {{ today | date: 'MMMM d, y' }}</h4>
     </div>
     <div class="mainTabs">
-      <div class="parkingLot card" routerLink="lots">
-        <h4>Parking Lots</h4>
-        <p class="totalSpotsNumber">2</p>
-      </div>
-      <div class="totalSpots card" routerLink="spots">
+
+      <!--TOTAL SPOTS KPI-->
+      <div
+        class="totalSpots card"
+        *ngIf="!loadingMetrics && metrics.length > 0; else loadingLot"
+        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+      >
         <h4>Total Spots</h4>
-        <p class="totalSpotsNumber">30</p>
+        <p class="totalSpotsNumber">{{ metrics[0]?.totalSpots }}</p>
       </div>
+      <ng-template #loadingLot>
+        <div class="totalSpots card disabled">
+          <h4>Total Spots</h4>
+          <p>Loading...</p>
+        </div>
+      </ng-template>
+
+      <!--FREE SPOTS KPI-->
+      <div class="freeSpots card"
+        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+      >
+        <h4>Free Spots</h4>
+        <p class="totalSpotsNumber">{{ metrics[0]?.freeSpots}}</p>
+      </div>
+
+      <!--OPEN TICKET KPI-->
       <div class="openTickets card" routerLink="ticket">
         <h4>Open Tickets</h4>
-        <p class="totalSpotsNumber">18</p>
+        <p class="totalSpotsNumber"> {{metrics[0]?.openTickets}} </p>
       </div>
+
+      <!--REVENUE KPI-->
       <div class="revenue card" routerLink="financial-report">
         <h4>Revenue Today</h4>
-        <p class="totalSpotsNumber">$450.00</p>
+        <p class="totalSpotsNumber">{{metrics[0]?.revenueToday}}</p>
       </div>
-      <div class="tariff card" routerLink="tariff">
-        <h4>Tarrif</h4>
+
+      <!--UNAVAILABLE SPOTS KPI-->
+      <div class="unavailableSpots card"
+        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+      >
+        <h4>Unavailable Spots</h4>
+        <p class="tot">{{metrics[0]?.unavailableSpots}}</p>
       </div>
-      <div class="user card" routerLink="user">
-        <h4>Profile</h4>
+
+      <!--UNAVAILABLE SPOTS KPI-->
+      <div class="occupiedSpots card"
+        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+      >
+        <h4>Occupied Spots</h4>
+        <p class="tot">{{metrics[0]?.occupiedSpots}}</p>
       </div>
+
     </div>
     <div class="parking-grid">
       <h4>Parking Spots Overview:</h4>
       <div class="spots-grid">
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
+
+        <div class="spot" *ngFor="let spot of spotsInfo">
+          <span
+            class="spotStatus"
+            [style.backgroundColor]="setParkingSpotColor(mapApiStatusToEnum(spot.status))"
+          ></span>
+          <p class="spotCode">{{ spot.spotCode }}</p>
         </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus free"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus unavailable"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus"></span>
-          <p class="spotCode">A1</p>
-        </div>
-        <div class="spot">
-          <span class="spotStatus unavailable"></span>
-          <p class="spotCode">A1</p>
-        </div>
+
       </div>
       <div class="spotStatusLegend">
         <div class="legend">

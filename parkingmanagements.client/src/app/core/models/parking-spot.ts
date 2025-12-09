@@ -15,7 +15,7 @@ export interface ParkingSpot {
   lotId: string,
   spotCode: string;
   type: SpotType;
-  status: SpotStatus;
+  status: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

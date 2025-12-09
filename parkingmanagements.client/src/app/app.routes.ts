@@ -25,7 +25,7 @@ export const routes: Routes = [
       title: 'Financial Report',
       //canActivate: [authGuard, roleGuard(['Admin'])]
     },
-    {path: 'dashboard/spots',
+    {path: 'dashboard/spots/:lotId',
       component: SpotsComponent,
       title: 'Parking Spots',
       //canActivate: [authGuard, roleGuard(['Admin', 'Attendant', 'Viewer'])]

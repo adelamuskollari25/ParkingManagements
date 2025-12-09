@@ -13,7 +13,7 @@ export class ReportingService {
   constructor(private http: HttpClient) { }
 
   getLotSnapShot() {
-    return this.http.get<DashboardMetrics[]>(`${this.baseUrl}/lotsnapshot`);
+    return this.http.get<{ data: DashboardMetrics[] }>(`${this.baseUrl}/lotsnapshot`);
   }
 
   getDailyRevenue() {
