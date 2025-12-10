@@ -1,7 +1,5 @@
-﻿using AutoMapper.Execution;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ParkingManagements.Data.Entities;
 using ParkingManagements.server.Data.Entities;
@@ -156,4 +154,3 @@ namespace ParkingManagements.Data
         }
     }
 }
-   

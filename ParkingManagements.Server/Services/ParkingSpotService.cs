@@ -2,7 +2,6 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ParkingManagements.Data;
-using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
 using ParkingManagements.Server.Common;
 using ParkingManagements.Server.Common.Sortings;

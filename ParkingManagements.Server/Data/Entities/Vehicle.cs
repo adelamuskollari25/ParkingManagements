@@ -1,7 +1,4 @@
-﻿using ParkingManagements.Data.Entities;
-using ParkingManagements.Data.Entities.Enums;
-using System.ComponentModel.DataAnnotations;
-using System.Net.Sockets;
+﻿using ParkingManagements.Data.Entities.Enums;
 
 namespace ParkingManagements.Data.Entities
 {

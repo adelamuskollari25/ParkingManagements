@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ParkingManagements.Data.Entities;
-using ParkingManagements.Data.Entities.Enums;
-using ParkingManagements.Server.Common;
 using ParkingManagements.Server.DTOs.Auth;
 using ParkingManagements.Server.Interfaces;
-using ParkingManagements.Server.Services;
 
 namespace ParkingManagements.Server.Controllers
 {

@@ -14,7 +14,7 @@ namespace ParkingManagements.Server.DTOs.Ticket
         public decimal? ComputedAmount { get; set; }
         public bool Paid { get; set; }
         public VehicleDTO Vehicle { get; set; }
-}
+    }
 
     public class VehicleDTO
     {

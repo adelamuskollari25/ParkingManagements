@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -190,7 +189,7 @@ app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHealthChecks("/health/live");      
+app.MapHealthChecks("/health/live");
 app.MapHealthChecks("/health/ready");
 
 app.MapControllers();

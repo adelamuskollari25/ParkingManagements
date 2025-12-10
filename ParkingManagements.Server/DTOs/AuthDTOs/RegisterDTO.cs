@@ -1,6 +1,5 @@
 ﻿using ParkingManagements.Data.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace ParkingManagements.Server.DTOs.Auth
 {
@@ -17,6 +16,6 @@ namespace ParkingManagements.Server.DTOs.Auth
         [Required]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-        public UserRole Role { get; set; } 
+        public UserRole Role { get; set; }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Net.Sockets;
 
 [Table("ParkingSpots")]
 public class ParkingSpot : BaseEntity
 {
     public Guid LotId { get; set; }
 
-    public string SpotCode { get; set; } 
+    public string SpotCode { get; set; }
     public SpotType Type { get; set; }
     public SpotStatus Status { get; set; }
 

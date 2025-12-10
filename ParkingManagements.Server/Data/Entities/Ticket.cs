@@ -1,8 +1,5 @@
 ﻿using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
-using ParkingManagements.Data.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 public class Ticket : BaseEntity
 {

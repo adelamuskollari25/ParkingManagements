@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using ParkingManagements.Data.Entities.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace ParkingManagements.server.Data.Entities
 {

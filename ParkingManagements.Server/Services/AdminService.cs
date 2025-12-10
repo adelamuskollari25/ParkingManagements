@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
 using ParkingManagements.server.Data.Entities;
 using ParkingManagements.Server.Common;
-using ParkingManagements.Server.DTOs;
 using ParkingManagements.Server.DTOs.Auth;
 using ParkingManagements.Server.DTOs.UserDTOs;
 using ParkingManagements.Server.Interfaces;
@@ -61,7 +59,7 @@ namespace ParkingManagements.Server.Services
                 throw new ServiceException("not_found", "User not found.", 404);
 
             user.LockoutEnabled = true;
-            user.LockoutEnd = DateTimeOffset.UtcNow.AddYears(100); 
+            user.LockoutEnd = DateTimeOffset.UtcNow.AddYears(100);
             var result = await _userManager.UpdateAsync(user);
 
             if (!result.Succeeded)

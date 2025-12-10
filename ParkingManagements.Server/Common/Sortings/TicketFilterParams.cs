@@ -10,7 +10,7 @@ namespace ParkingManagements.Server.Common.Sortings
         public Guid? SpotId { get; set; }
         public DateTime? From { get; set; }
         public DateTime? To { get; set; }
-        public string? SortBy { get; set; } 
+        public string? SortBy { get; set; }
         public bool SortDescending { get; set; }
     }
 }

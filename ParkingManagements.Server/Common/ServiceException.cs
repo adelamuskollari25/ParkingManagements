@@ -12,7 +12,7 @@
         public string Code { get; set; }
         public int StatusCode { get; set; }
 
-        public ServiceException(string code, string message, int statusCode ): base(message)
+        public ServiceException(string code, string message, int statusCode) : base(message)
         {
             Code = code;
             StatusCode = statusCode;

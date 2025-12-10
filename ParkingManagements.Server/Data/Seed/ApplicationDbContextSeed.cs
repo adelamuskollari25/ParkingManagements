@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ParkingManagements.Data;
-using ParkingManagements.Data.Entities;
 using ParkingManagements.Data.Entities.Enums;
 using ParkingManagements.server.Data.Entities;
 
@@ -17,7 +16,7 @@ public static class ApplicationDbContextSeed
         if (!await roleManager.RoleExistsAsync("Attendant"))
             await roleManager.CreateAsync(new IdentityRole("Attendant"));
 
-        if (!await roleManager.RoleExistsAsync("Viewer")) 
+        if (!await roleManager.RoleExistsAsync("Viewer"))
             await roleManager.CreateAsync(new IdentityRole("Viewer"));
 
         // Admin

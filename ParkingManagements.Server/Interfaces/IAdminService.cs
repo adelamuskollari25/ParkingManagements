@@ -1,6 +1,5 @@
 ﻿using ParkingManagements.Server.DTOs.Auth;
 using ParkingManagements.Server.DTOs.UserDTOs;
-using System.Collections.Generic;
 
 namespace ParkingManagements.Server.Interfaces
 {

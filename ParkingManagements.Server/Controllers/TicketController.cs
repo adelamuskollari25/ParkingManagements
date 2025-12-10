@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ParkingManagements.Server.Common.Sortings;
 using ParkingManagements.Server.DTOs.Ticket;
 using ParkingManagements.Server.Interfaces;
@@ -41,7 +40,7 @@ namespace ParkingManagements.Server.Controllers
         [HttpPost("search")]
         public async Task<IActionResult> Search([FromQuery] TicketFilterParams filters)
         {
-             filters ??= new TicketFilterParams();
+            filters ??= new TicketFilterParams();
             var result = await _ticketService.SearchAsync(filters);
             return Ok(result);
         }

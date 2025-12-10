@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ParkingManagements.Server.DTOs.Auth;
 using ParkingManagements.Server.Interfaces;
-using ParkingManagements.Server.Services;
 
 namespace ParkingManagements.Server.Controllers
 {

@@ -7,7 +7,7 @@ namespace ParkingManagements.Server.Common.Sortings
         public SpotStatus? Status { get; set; }
         public SpotType? Type { get; set; }
         public string? SpotCode { get; set; }
-        public string? SortBy { get; set; } 
+        public string? SortBy { get; set; }
         public bool SortDescending { get; set; } = false;
     }
 }

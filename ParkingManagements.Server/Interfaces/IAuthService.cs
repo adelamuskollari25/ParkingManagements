@@ -1,6 +1,5 @@
 ﻿using ParkingManagements.Server.DTOs.Auth;
 using ParkingManagements.Server.DTOs.UserDTOs;
-using ParkingManagements.Server.Services.ParkingManagements.Server.Services;
 using System.Security.Claims;
 
 namespace ParkingManagements.Server.Interfaces
