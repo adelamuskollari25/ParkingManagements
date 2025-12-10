@@ -1,5 +1,5 @@
 import { PaymentReq } from "./payment";
-import { Vehicle } from "./vehicle";
+import { VehicleType } from "./vehicle";
 
 export enum TicketStatus {
   Open = 'Open',
@@ -11,7 +11,13 @@ export interface Ticket {
   id: string;
   lotId: string;
   spotId: string;
-  vehicle: Vehicle;
+  spotCode: string;      // NEW
+  vehicle:
+    {
+      plate: string;
+      type?: VehicleType;  // NEW
+      color?: string;      // NEW
+    }
   entryTime?: Date;
   exitTime?: Date;
   status: TicketStatus;
