@@ -30,6 +30,8 @@ export class TicketEntry implements OnInit {
 
   loading = false;
 
+  VehicleType = VehicleType; //use it in the template
+
   constructor(
     private lotService: ParkingLotService,
     private spotService: ParkingSpotService,
@@ -56,6 +58,7 @@ export class TicketEntry implements OnInit {
         this.freeSpots = result.data.filter(
           s => this.isFreeSpot(s)
         );
+        console.log('Free spots: ', this.freeSpots);
       });
     });
   }

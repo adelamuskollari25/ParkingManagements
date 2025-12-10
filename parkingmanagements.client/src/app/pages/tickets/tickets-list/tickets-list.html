@@ -37,7 +37,7 @@
 
               <div class="holder">
                 <p>Car Type:</p>
-                <p>{{ ticket.vehicle.type }}</p>
+                <p>{{ getVehicleTypeLabel(ticket.vehicle.type) }}</p>
               </div>
 
               <div class="holder">
@@ -58,7 +58,7 @@
 
             <!-- STATUS -->
             <div class="ticketStatusHolder">
-              <h3>{{ ticket.status }}</h3>
+              <h3>{{ getStatusLabel(ticket.status) }}</h3>
             </div>
 
           </div>

@@ -30,9 +30,9 @@
     <div class="formRow">
       <label>Vehicle Type</label>
       <select [(ngModel)]="vehicleType">
-        <option value="Car">Car</option>
-        <option value="Van">Van</option>
-        <option value="Motorcycle">Motorcycle</option>
+        <option [ngValue]="VehicleType.Car">Car</option>
+        <option [ngValue]="VehicleType.Van">Van</option>
+        <option [ngValue]="VehicleType.Motorcycle">Motorcycle</option>
       </select>
     </div>
 
