@@ -87,28 +87,18 @@ export class Dashboard implements OnInit {
     }
   }
 
-  mapApiStatusToEnum(status: number): SpotStatus {
-  switch(status){
-    case 0: return SpotStatus.Free;
-    case 1: return SpotStatus.Occupied;
-    case 2: return SpotStatus.Unavailable;
-    default: return SpotStatus.Free; // fallback
-  }
-}
-
   getSpotColor(spot: ParkingSpot): string {
-    const enumStatus = this.mapApiStatusToEnum(spot.status);
-    return this.setParkingSpotColor(enumStatus);
+    return this.setParkingSpotColor(spot.status);
   }
 
   // set parking spot color based on parking spot status
-  setParkingSpotColor(status: string): string {
+  setParkingSpotColor(status: SpotStatus): string {
     switch (status) {
-      case 'Free':
+      case SpotStatus.Free:
         return 'green';
-      case 'Occupied':
+      case SpotStatus.Occupied:
         return 'red';
-      case 'Unavailable':
+      case SpotStatus.Unavailable:
         return 'gray';
       default:
           return 'blue';

@@ -2,7 +2,7 @@
     <div class="dashboardTitleContainer">
         <h1>PARKING MANAGEMENT DASHBOARD</h1>
     </div>
-    <!--TODO: Change the class names for the tabs-->
+
     <div class="info">
       <h4 class="greeting"><mat-icon>{{ icon }}</mat-icon> {{ greeting }}</h4>
       <h4 class="dateTime">Today: {{ today | date: 'MMMM d, y' }}</h4>
@@ -16,7 +16,7 @@
         [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
       >
         <h4>Total Spots</h4>
-        <p class="totalSpotsNumber">{{ metrics[0]?.totalSpots }}</p>
+        <p id="totalSpotsNumber">{{ metrics[0]?.totalSpots }}</p>
       </div>
       <ng-template #loadingLot>
         <div class="totalSpots card disabled">
@@ -30,19 +30,19 @@
         [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
       >
         <h4>Free Spots</h4>
-        <p class="totalSpotsNumber">{{ metrics[0]?.freeSpots}}</p>
+        <p id="freeSpotsNumber">{{ metrics[0]?.freeSpots}}</p>
       </div>
 
       <!--OPEN TICKET KPI-->
       <div class="openTickets card" routerLink="ticket">
         <h4>Open Tickets</h4>
-        <p class="totalSpotsNumber"> {{metrics[0]?.openTickets}} </p>
+        <p id="openTickets"> {{metrics[0]?.openTickets}} </p>
       </div>
 
       <!--REVENUE KPI-->
       <div class="revenue card" routerLink="financial-report">
         <h4>Revenue Today</h4>
-        <p class="totalSpotsNumber">{{metrics[0]?.revenueToday}}</p>
+        <p id="revenueToday">{{metrics[0]?.revenueToday}}</p>
       </div>
 
       <!--UNAVAILABLE SPOTS KPI-->
@@ -50,7 +50,7 @@
         [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
       >
         <h4>Unavailable Spots</h4>
-        <p class="tot">{{metrics[0]?.unavailableSpots}}</p>
+        <p id="unavailableSpotsNumber">{{metrics[0]?.unavailableSpots}}</p>
       </div>
 
       <!--UNAVAILABLE SPOTS KPI-->
@@ -58,10 +58,12 @@
         [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
       >
         <h4>Occupied Spots</h4>
-        <p class="tot">{{metrics[0]?.occupiedSpots}}</p>
+        <p id="occupiedSpotsNumber">{{metrics[0]?.occupiedSpots}}</p>
       </div>
 
     </div>
+
+    <!--Parking Grid Display-->
     <div class="parking-grid">
       <h4>Parking Spots Overview:</h4>
       <div class="spots-grid">
@@ -69,11 +71,12 @@
         <div class="spot" *ngFor="let spot of spotsInfo">
           <span
             class="spotStatus"
-            [style.backgroundColor]="setParkingSpotColor(mapApiStatusToEnum(spot.status))"
+            [style.backgroundColor]="getSpotColor(spot)"
           ></span>
           <p class="spotCode">{{ spot.spotCode }}</p>
         </div>
 
+        <!--Parking Spots Legend-->
       </div>
       <div class="spotStatusLegend">
         <div class="legend">

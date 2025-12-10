@@ -13,6 +13,7 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   payTicket(ticketId: string) {
-    return this.http.post<Payment>(`${this.baseUrl}/tickets/${ticketId}`, {})
+    return this.http.get<Payment>(`${this.baseUrl}/ticket/${ticketId}`);
   }
+
 }

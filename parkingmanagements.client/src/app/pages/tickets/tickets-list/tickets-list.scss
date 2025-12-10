@@ -82,7 +82,7 @@
     }
 }
 
-/* ticket header style */ 
+/* ticket header style */
 .parkingTicketHeader {
     margin: 10px 0;
     border-top: 1px solid black;
@@ -110,7 +110,7 @@
     }
 }
 
-/* date info style */ 
+/* date info style */
 .ticketDateData {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -167,7 +167,7 @@
     color: white;
     letter-spacing: 5px;
     cursor: pointer;
-    
+
     &:hover {
         box-shadow: 5px 5px 10px rgb(0, 0, 0);
     }

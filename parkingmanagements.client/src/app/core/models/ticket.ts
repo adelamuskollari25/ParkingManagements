@@ -38,7 +38,7 @@ export interface TicketPreview {
 export interface CreateTicketRequest {
   lotId: string;
   spotId: string;
-  vehicle: Vehicle;
+  plateNumber: string;
 }
 
 export interface CloseTicketRequest {

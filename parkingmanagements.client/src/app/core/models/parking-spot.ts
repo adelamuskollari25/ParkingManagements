@@ -5,9 +5,9 @@ export enum SpotType {
 }
 
 export enum SpotStatus {
-  Free = 'Free',
-  Occupied = 'Occupied',
-  Unavailable = 'Unavailable'
+  Free = 0,
+  Occupied = 1,
+  Unavailable = 2
 }
 
 export interface ParkingSpot {

@@ -12,8 +12,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  getTicketsById(ticketId: string) {
-    return this.http.get<TicketPreview>(`${this.baseUrl}/${ticketId}/preview-details`)
+  getTicketPreview(ticketId: string) {
+    return this.http.get<TicketPreview>(`${this.baseUrl}/${ticketId}/preview-exit`);
   }
 
   createEntryTicket(data: CreateTicketRequest) {
@@ -23,4 +23,14 @@ export class TicketService {
   closeTicket(data: CloseTicketRequest) {
     return this.http.post<Ticket>(`${this.baseUrl}/close`, data);
   }
+
+  searchTickets(filter?: {
+    status?: 'Open' | 'Closed' | 'Lost';
+  }) {
+    return this.http.post<{ data: Ticket[] }>(
+      `${this.baseUrl}/search`,
+      filter ?? {}
+    );
+  }
+
 }
