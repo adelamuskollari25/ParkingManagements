@@ -5,9 +5,9 @@ export enum SpotType {
 }
 
 export enum SpotStatus {
-  Free = 0,
-  Occupied = 1,
-  Unavailable = 2
+  Free = 'Free',
+  Occupied = 'Occupied',
+  Unavailable = 'Unavailable'
 }
 
 export interface ParkingSpot {
@@ -15,7 +15,7 @@ export interface ParkingSpot {
   lotId: string,
   spotCode: string;
   type: SpotType;
-  status: number;
+  status: SpotStatus;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Ticket } from '../../../core/models/ticket';
+import { Ticket, TicketStatus } from '../../../core/models/ticket';
 import { TicketService } from '../../../core/services/ticket.service';
 
 @Component({
