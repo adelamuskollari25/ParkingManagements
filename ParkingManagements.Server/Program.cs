@@ -10,6 +10,7 @@ using ParkingManagements.Server.Managers;
 using ParkingManagements.Server.Services;
 using ParkingManagements.Server.Services.ParkingManagements.Server.Services;
 using System.Text;
+using System.Text.Json.Serialization; //NEW
 
 
 // Build the WebApplication
@@ -91,7 +92,16 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 
 
 // Controllers
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
+
+// Controllers NEW
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter()
+        );
+    });
 
 builder.Services.AddHealthChecks();
 
