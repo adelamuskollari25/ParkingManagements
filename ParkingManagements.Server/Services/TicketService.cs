@@ -128,6 +128,7 @@ namespace ParkingManagements.Server.Services
         {
             var query = _context.Tickets
                 .Include(t => t.Vehicle)
+                .Include(t => t.ParkingSpot) // NEW: REQUIRED for SpotCode
                 .AsQueryable();
 
             if (filters.Status.HasValue)

@@ -29,7 +29,16 @@ public class ParkingMappingProfile : Profile
         CreateMap<TariffUpdateDTO, Tariff>().ReverseMap();
         CreateMap<TariffDTO, Tariff>().ReverseMap();
 
-        CreateMap<TicketDTO, Ticket>().ReverseMap();
+        //CreateMap<TicketDTO, Ticket>().ReverseMap();
+        // NEW:
+        CreateMap<Ticket, TicketDTO>()
+            .ForMember(dest => dest.SpotCode,
+                opt => opt.MapFrom(src => src.ParkingSpot.SpotCode))
+            .ForMember(dest => dest.Vehicle,
+            opt => opt.MapFrom(src => src.Vehicle));
+
+        CreateMap<TicketDTO, Ticket>();
+        //no change below
         CreateMap<TicketCreateDTO, Ticket>().ReverseMap();
         CreateMap<TicketCloseDTO, Ticket>().ReverseMap();
         CreateMap<TicketPreviewExitDTO, Ticket>().ReverseMap();
