@@ -1,7 +1,7 @@
 export enum VehicleType {
-  Car = 0,
-  Van = 1,
-  Motorcycle = 2
+  Car = 'Car',
+  Van = 'Van',
+  Motorcycle = 'Motorcycle'
 }
 
 export interface Vehicle {

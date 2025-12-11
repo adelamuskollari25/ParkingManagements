@@ -16,6 +16,8 @@ import { ParkingSpotService } from '../../core/services/parking-spot.service';
 })
 export class Dashboard implements OnInit {
 
+  //SpotStatus = SpotStatus;
+
   // get dashboard metrics
   metrics: DashboardMetrics[] = [];
   loadingMetrics = true;
@@ -58,6 +60,7 @@ export class Dashboard implements OnInit {
       next: res => {
         this.spotsInfo = res.data;
         console.log('Paking spots loaded: ', this.spotsInfo);
+        console.log("Spot statuses:", res.data.map(s => s.status));
       },
       error: err => {
         console.error('Error loading parking spots: ', err);

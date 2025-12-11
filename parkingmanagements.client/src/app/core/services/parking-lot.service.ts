@@ -14,7 +14,7 @@ export class ParkingLotService {
   constructor(private http: HttpClient) { }
 
   getParkingLots() {
-    return this.http.get<{ data: ParkingLot[] }>(this.baseUrl);
+    return this.http.get<{data:ParkingLot[]}>(this.baseUrl);
   }
 
   getById(id: string) {

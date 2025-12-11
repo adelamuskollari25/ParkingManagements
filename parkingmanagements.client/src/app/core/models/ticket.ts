@@ -2,9 +2,9 @@ import { PaymentReq } from "./payment";
 import { VehicleType } from "./vehicle";
 
 export enum TicketStatus {
-  Open = 0,
-  Closed = 1,
-  Lost = 2
+  Open = 'Open',
+  Closed = 'Closed',
+  Lost = 'Lost'
 }
 
 export interface Ticket {
@@ -45,6 +45,8 @@ export interface CreateTicketRequest {
   lotId: string;
   spotId: string;
   plateNumber: string;
+  vehicleType?: VehicleType; // NEW
+  color?: string; // NEW
 }
 
 export interface CloseTicketRequest {

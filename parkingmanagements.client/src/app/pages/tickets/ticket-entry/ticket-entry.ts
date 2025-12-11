@@ -49,10 +49,10 @@ export class TicketEntry implements OnInit {
   }
 
   loadLotAndSpots() {
-    this.lotService.getParkingLots().subscribe(res => {
-      if (!res.data || res.data.length === 0) return;
+    this.lotService.getParkingLots().subscribe(lots => {
+      if (!lots || lots.data.length === 0) return;
 
-      this.selectedLot = res.data[0];
+      this.selectedLot = lots.data[0];
 
       this.spotService.getParkingSpots(this.selectedLot.id).subscribe(result => {
         this.freeSpots = result.data.filter(
@@ -74,7 +74,9 @@ export class TicketEntry implements OnInit {
     this.ticketService.createEntryTicket({
       lotId: this.selectedLot.id,
       spotId: this.selectedSpotId,
-      plateNumber: this.vehiclePlate
+      plateNumber: this.vehiclePlate,
+      vehicleType: this.vehicleType,
+      color: this.vehicleColor
     }).subscribe({
       next: () => {
         this.loading = false;
