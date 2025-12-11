@@ -37,8 +37,21 @@ namespace ParkingManagements.Server.Services
 
             if (vehicle == null)
             {
-                vehicle = new Vehicle { Plate = dto.PlateNumber };
+                vehicle = new Vehicle 
+                    { 
+                        Plate = dto.PlateNumber,
+                        Type = dto.VehicleType, // NEW
+                        Color = dto.Color // NEW
+                    };
                 _context.Vehicles.Add(vehicle);
+            } else // ALL ELSE SECTION IS NEW
+            {
+                // Update vehicle info if missing
+                if (vehicle.Type == null && dto.VehicleType.HasValue)
+                    vehicle.Type = dto.VehicleType;
+
+                if (string.IsNullOrEmpty(vehicle.Color) && !string.IsNullOrEmpty(dto.Color))
+                    vehicle.Color = dto.Color;
             }
 
             var ticket = new Ticket
