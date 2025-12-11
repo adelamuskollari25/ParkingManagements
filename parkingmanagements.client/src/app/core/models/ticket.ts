@@ -51,5 +51,6 @@ export interface CreateTicketRequest {
 
 export interface CloseTicketRequest {
   ticketId: string;
-  payment: PaymentReq;
+  paymentMethod: number;
+  isLostTicket: boolean;
 }

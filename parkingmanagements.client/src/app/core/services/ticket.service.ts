@@ -26,6 +26,11 @@ export class TicketService {
 
   searchTickets(filter?: {
     status?: 'Open' | 'Closed' | 'Lost';
+    plate?: string;
+    lotId?: string;
+    spotId?: string;
+    from?: Date;
+    to?: Date;
   }) {
     return this.http.post<{ data: Ticket[] }>(
       `${this.baseUrl}/search`,
