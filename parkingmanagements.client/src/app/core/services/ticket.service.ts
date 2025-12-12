@@ -16,26 +16,35 @@ export class TicketService {
     return this.http.get<TicketPreview>(`${this.baseUrl}/${ticketId}/preview-exit`);
   }
 
+  // CREATE ENTRY TICKET
   createEntryTicket(data: CreateTicketRequest) {
-    return this.http.post<Ticket>(`${this.baseUrl}/enter`, data);
+    return this.http.post<Ticket>(this.baseUrl, {
+      ...data,
+      status: 'Open',
+      entryTime: new Date().toISOString(),
+      isPaid: false
+    });
   }
 
-  closeTicket(data: CloseTicketRequest) {
-    return this.http.post<Ticket>(`${this.baseUrl}/close`, data);
-  }
-
-  searchTickets(filter?: {
-    status?: 'Open' | 'Closed' | 'Lost';
-    plate?: string;
-    lotId?: string;
-    spotId?: string;
-    from?: Date;
-    to?: Date;
-  }) {
-    return this.http.post<{ data: Ticket[] }>(
-      `${this.baseUrl}/search`,
-      filter ?? {}
+  // CLOSE TICKET
+  closeTicket(ticketId: string, update: Partial<Ticket>) {
+    return this.http.patch<Ticket>(
+      `${this.baseUrl}/${ticketId}`,
+      update
     );
   }
+
+  // SEARCH OPEN TICKETS
+  searchTickets(params?: {
+    status?: number;
+    plate?: string;
+    lotId?: string;
+  }) {
+    return this.http.get<Ticket[]>(
+      this.baseUrl,
+      { params: params as any }
+    );
+  }
+
 
 }

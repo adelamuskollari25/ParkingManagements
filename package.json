@@ -1,0 +1,25 @@
+{
+  "name": "parkingmanagements",
+  "version": "1.0.0",
+  "description": "The Parking Management API backend provides endpoints for managing parking lots, parking spots, tickets, payments, tariffs, and reporting.  \r It is designed to support a web frontend with JWT authentication, role-based authorization, observability features (health endpoints and correlation IDs), and API documentation.  \r The main objective of this project is to simplify and automate parking management operations while maintaining auditability and traceability of critical actions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-api": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adelamuskollari25/ParkingManagements.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adelamuskollari25/ParkingManagements/issues"
+  },
+  "homepage": "https://github.com/adelamuskollari25/ParkingManagements#readme",
+  "dependencies": {
+    "json-server": "^0.17.4",
+    "uuid": "^13.0.0"
+  }
+}

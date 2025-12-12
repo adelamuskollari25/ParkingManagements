@@ -1,7 +1,7 @@
 export enum PaymentMethod {
-  Cash = 'Cash',
-  Card = 'Card',
-  Other = 'Other'
+  Cash = 0,
+  Card = 1,
+  Other = 2
 }
 
 export interface Payment {

@@ -12,11 +12,11 @@
       <!--TOTAL SPOTS KPI-->
       <div
         class="totalSpots card"
-        *ngIf="!loadingMetrics && metrics.length > 0; else loadingLot"
-        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+        *ngIf="totalSpots > 0; else loadingLot"
+        [routerLink]="['/dashboard/spots', selectedLot?.id]"
       >
         <h4>Total Spots</h4>
-        <p id="totalSpotsNumber">{{ metrics[0]?.totalSpots }}</p>
+        <p id="totalSpotsNumber">{{ totalSpots }}</p>
       </div>
       <ng-template #loadingLot>
         <div class="totalSpots card disabled">
@@ -27,38 +27,38 @@
 
       <!--FREE SPOTS KPI-->
       <div class="freeSpots card"
-        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+        [routerLink]="['/dashboard/spots', selectedLot?.id]"
       >
         <h4>Free Spots</h4>
-        <p id="freeSpotsNumber">{{ metrics[0]?.freeSpots}}</p>
+        <p id="freeSpotsNumber">{{ freeSpots }}</p>
       </div>
 
       <!--OPEN TICKET KPI-->
       <div class="openTickets card" routerLink="ticket">
         <h4>Open Tickets</h4>
-        <p id="openTickets"> {{metrics[0]?.openTickets}} </p>
+        <p id="openTickets"> {{ openTickets }} </p>
       </div>
 
       <!--REVENUE KPI-->
       <div class="revenue card" routerLink="financial-report">
         <h4>Revenue Today</h4>
-        <p id="revenueToday">{{metrics[0]?.revenueToday}}</p>
+        <p id="revenueToday">{{ revenueToday }}</p>
       </div>
 
       <!--UNAVAILABLE SPOTS KPI-->
       <div class="unavailableSpots card"
-        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+        [routerLink]="['/dashboard/spots', selectedLot?.id]"
       >
         <h4>Unavailable Spots</h4>
-        <p id="unavailableSpotsNumber">{{metrics[0]?.unavailableSpots}}</p>
+        <p id="unavailableSpotsNumber">{{ unavailableSpots }}</p>
       </div>
 
       <!--UNAVAILABLE SPOTS KPI-->
       <div class="occupiedSpots card"
-        [routerLink]="['/dashboard/spots', metrics[0]?.lotId]"
+        [routerLink]="['/dashboard/spots', selectedLot?.id]"
       >
         <h4>Occupied Spots</h4>
-        <p id="occupiedSpotsNumber">{{metrics[0]?.occupiedSpots}}</p>
+        <p id="occupiedSpotsNumber">{{ occupiedSpots }}</p>
       </div>
 
     </div>

@@ -1,60 +1,52 @@
 <div class="container">
-  <!-- ERROR -->
-  <div *ngIf="error" class="error">
-    Failed to load parking spots. Please try again later.
+
+  <h2>Parking Spots</h2>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <label>
+      Status:
+      <select [(ngModel)]="statusFilter" (change)="applyFilters()">
+        <option [ngValue]="'ALL'">All</option>
+        <option [ngValue]="SpotStatus.Free">Free</option>
+        <option [ngValue]="SpotStatus.Occupied">Occupied</option>
+        <option [ngValue]="SpotStatus.Unavailable">Unavailable</option>
+      </select>
+    </label>
+
+    <label>
+      Type:
+      <select [(ngModel)]="typeFilter" (change)="applyFilters()">
+        <option [ngValue]="'ALL'">All</option>
+        <option [ngValue]="SpotType.Regular">Regular</option>
+        <option [ngValue]="SpotType.EV">EV</option>
+        <option [ngValue]="SpotType.Disabled">Disabled</option>
+      </select>
+    </label>
   </div>
 
   <!-- LOADING -->
-  <div *ngIf="loading && !error">
-    Loading parking spots...
+  <p *ngIf="loading">Loading spots...</p>
+
+  <!-- ERROR -->
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <!-- GRID -->
+  <div class="spots-grid" *ngIf="!loading && !error">
+    <div class="spot-card" *ngFor="let spot of filteredSpots">
+
+      <h3>{{ spot.spotCode }}</h3>
+
+      <p><strong>Type:</strong> {{ getTypeLabel(spot.type) }}</p>
+      <p><strong>Status:</strong> {{ getStatusLabel(spot.status) }}</p>
+
+      <button
+        *ngIf="spot.status !== SpotStatus.Occupied"
+        (click)="toggleUnavailable(spot)">
+        {{ spot.status === SpotStatus.Unavailable ? 'Mark Free' : 'Mark Unavailable' }}
+      </button>
+
+    </div>
   </div>
 
-  <!-- CONTENT -->
-  <ng-container *ngIf="!loading && !error">
-
-    <!-- HEADER -->
-    <h2>{{ lot?.name }} – Parking Spots</h2>
-    <p class="address">{{ lot?.address }}</p>
-
-    <!-- METRICS -->
-    <div class="metrics" *ngIf="metrics">
-      <div class="metric">
-        <label>Total</label>
-        <span>{{ metrics.totalSpots }}</span>
-      </div>
-      <div class="metric free">
-        <label>Free</label>
-        <span>{{ metrics.freeSpots }}</span>
-      </div>
-      <div class="metric occupied">
-        <label>Occupied</label>
-        <span>{{ metrics.occupiedSpots }}</span>
-      </div>
-      <div class="metric unavailable">
-        <label>Unavailable</label>
-        <span>{{ metrics.unavailableSpots }}</span>
-      </div>
-    </div>
-
-    <!-- SPOTS GRID -->
-    <div class="spots-grid">
-      <div class="spot-card"
-           *ngFor="let spot of spots"
-           >
-
-        <h3>{{ spot.spotCode }}</h3>
-
-        <p>
-          <strong>Type:</strong> {{ spot.type }}
-        </p>
-
-        <p>
-          <strong>Status:</strong>
-          <span class="status">{{ spot.status }}</span>
-        </p>
-
-      </div>
-    </div>
-
-  </ng-container>
 </div>

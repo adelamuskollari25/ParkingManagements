@@ -1,69 +1,89 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ParkingSpotService } from '../../core/services/parking-spot.service';
-import { ParkingSpot } from '../../core/models/parking-spot';
-import { ParkingLotService } from '../../core/services/parking-lot.service';
-import { ParkingLot } from '../../core/models/parking-lot';
-import { ParkingMetrics } from '../../core/models/parking-spot';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
+import { ParkingSpot, SpotStatus, SpotType } from '../../core/models/parking-spot';
+import { ParkingSpotService } from '../../core/services/parking-spot.service';
 @Component({
   selector: 'app-spots',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './spots.html',
-  styleUrl: './spots.scss',
+  styleUrls: ['./spots.scss'],
 })
 export class SpotsComponent implements OnInit {
 
   lotId!: string;
 
-  lot?: ParkingLot;
-  metrics?: ParkingMetrics;
   spots: ParkingSpot[] = [];
+  filteredSpots: ParkingSpot[] = [];
+
+  statusFilter: SpotStatus | 'ALL' = 'ALL';
+  typeFilter: SpotType | 'ALL' = 'ALL';
 
   loading = true;
-  error = false;
+  error = '';
+
+  SpotStatus = SpotStatus;
+  SpotType = SpotType;
 
   constructor(
     private route: ActivatedRoute,
-    private parkingLotService: ParkingLotService,
     private parkingSpotService: ParkingSpotService
   ) {}
 
   ngOnInit(): void {
     this.lotId = this.route.snapshot.paramMap.get('lotId')!;
-    this.loadData();
-    console.log('LotId from URL =', this.lotId);
+    this.loadSpots();
   }
 
-  loadData() {
+  loadSpots() {
     this.loading = true;
-    this.error = false;
 
-    // load lot details
-    this.parkingLotService.getById(this.lotId).subscribe({
-      next: lot => this.lot = lot,
-      error: () => this.error = true
-    });
-
-    // load occupancy metrics
-    this.parkingLotService.getOccupancy(this.lotId).subscribe({
-      next: metrics => this.metrics = metrics,
-      error: () => this.error = true
-    });
-
-    // load parking spots
     this.parkingSpotService.getParkingSpots(this.lotId).subscribe({
-      next: res => {
-        this.spots = res.data;
+      next: spots=> {
+        this.spots = spots;
+        this.applyFilters();
         this.loading = false;
       },
-      error: err => {
-        console.error('Failed to load spots:', err);
-        this.error = true;
+      error: ()=> {
+        this.error = 'Failer to load parking spots.';
         this.loading = false;
       }
-    });
+    })
+  }
+
+  applyFilters() {
+    this.filteredSpots = this.spots.filter(spot => {
+      const statusOK =
+        this.statusFilter === 'ALL' || spot.status === this.statusFilter;
+
+      const typeOk =
+        this.typeFilter === 'ALL' || spot.type === this.typeFilter;
+
+      return statusOK && typeOk;
+    })
+  }
+
+  toggleUnavailable(spot: ParkingSpot) {
+    const newStatus =
+      spot.status === SpotStatus.Unavailable
+        ? SpotStatus.Free
+        : SpotStatus.Unavailable;
+
+    this.parkingSpotService.updateStatus(spot.id, newStatus).subscribe(()=> {
+      spot.status = newStatus;
+      this.applyFilters();
+    })
+  }
+
+  getStatusLabel(status: SpotStatus) {
+    return SpotStatus[status];
+  }
+
+  getTypeLabel(type: SpotType) {
+    return SpotType[type];
   }
 
 }

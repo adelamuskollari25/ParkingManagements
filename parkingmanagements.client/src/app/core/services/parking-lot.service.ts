@@ -9,12 +9,12 @@ import { ParkingMetrics } from '../models/parking-spot';
 })
 export class ParkingLotService {
 
-  private baseUrl = `${environment.apiUrl}/ParkingLot`;
+  private baseUrl = `${environment.apiUrl}/parkingLots`;
 
   constructor(private http: HttpClient) { }
 
   getParkingLots() {
-    return this.http.get<{data:ParkingLot[]}>(this.baseUrl);
+    return this.http.get<ParkingLot[]>(this.baseUrl);
   }
 
   getById(id: string) {
@@ -23,9 +23,5 @@ export class ParkingLotService {
 
   create(data: Partial<ParkingLot>) {
     return this.http.post<ParkingLot>(this.baseUrl, data);
-  }
-
-  getOccupancy(id: string) {
-    return this.http.get<ParkingMetrics>(`${this.baseUrl}/${id}/occupancy`);
   }
 }

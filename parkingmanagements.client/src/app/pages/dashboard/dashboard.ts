@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { DashboardMetrics } from '../../core/models/dashboardMetrics';
-import { ReportingService } from '../../core/services/reporting.service';
+
+import { ParkingLot } from '../../core/models/parking-lot';
 import { ParkingSpot, SpotStatus } from '../../core/models/parking-spot';
+import { Ticket } from '../../core/models/ticket';
+
 import { ParkingSpotService } from '../../core/services/parking-spot.service';
+import { ParkingLotService } from '../../core/services/parking-lot.service';
+import { TicketService } from '../../core/services/ticket.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,56 +20,86 @@ import { ParkingSpotService } from '../../core/services/parking-spot.service';
 })
 export class Dashboard implements OnInit {
 
-  //SpotStatus = SpotStatus;
-
-  // get dashboard metrics
-  metrics: DashboardMetrics[] = [];
-  loadingMetrics = true;
-
-  //get Spots info
+  // Data
   spotsInfo: ParkingSpot[] = [];
+  lotsInfo: ParkingLot[] = [];
+  tickets: Ticket[] = [];
+  selectedLot?: ParkingLot;
+
+  // KPIs
+  totalSpots = 0;
+  freeSpots = 0;
+  occupiedSpots = 0;
+  unavailableSpots = 0;
+  openTickets = 0;
+  revenueToday = 0;
 
   //get date
   today: Date = new Date();
   greeting: string = '';
   icon: string = '';
 
+  loading = true;
+
 
   constructor(
-    private reportingService: ReportingService,
-    private parkingSpotService: ParkingSpotService) {}
+    private parkingSpotService: ParkingSpotService,
+    private parkingLotService: ParkingLotService,
+    private ticketService: TicketService
+  ) {}
 
   ngOnInit() {
     this.setGreeting();
+    this.loadDashboard();
+  }
 
-    this.reportingService.getLotSnapShot().subscribe({
-      next: res => {
-        this.metrics = res.data;
-        this.loadingMetrics = false;
-        if(this.metrics.length > 0){
-        this.loadParkingSpots(this.metrics[0].lotId); // load first lot's spots
-      }
-        console.log('Metrics loaded: ', this.metrics);
-      },
-      error: err => {
-        this.loadingMetrics = false;
-        console.error('Snapshot error: ', err)
-      }
+  loadDashboard() {
+    this.parkingLotService.getParkingLots().subscribe(lots => {
+      if (!lots.length) return;
+
+      this.lotsInfo = lots;
+      this.selectedLot = lots[0];
+
+      this.loadSpots();
+      this.loadTickets();
     })
   }
 
-  //load parking spots
-  loadParkingSpots(lotId: string) {
-    this.parkingSpotService.getParkingSpots(lotId).subscribe({
-      next: res => {
-        this.spotsInfo = res.data;
-        console.log('Paking spots loaded: ', this.spotsInfo);
-        console.log("Spot statuses:", res.data.map(s => s.status));
-      },
-      error: err => {
-        console.error('Error loading parking spots: ', err);
-      }
+  loadSpots() {
+    if (!this.selectedLot) return;
+
+    this.parkingSpotService.getParkingSpots(this.selectedLot.id).subscribe(spots => {
+      this.spotsInfo = spots;
+
+      this.totalSpots = spots.length;
+      this.freeSpots = spots.filter(s=> s.status === SpotStatus.Free).length;
+      this.occupiedSpots = spots.filter(s=> s.status === SpotStatus.Occupied).length;
+      this.unavailableSpots = spots.filter(s=> s.status === SpotStatus.Unavailable).length;
     })
+  }
+
+  loadTickets() {
+    if (!this.selectedLot) return;
+
+    this.ticketService.searchTickets({ status: 0 }).subscribe(tickets => {
+      this.tickets = tickets;
+      this.openTickets = tickets.length;
+      console.log('Ticket length: ', tickets.length);
+      this.loading = false;
+    });
+  }
+
+  getSpotColor(spot: ParkingSpot): string {
+    switch (spot.status) {
+      case SpotStatus.Free:
+        return 'green';
+      case SpotStatus.Occupied:
+        return 'red';
+      case SpotStatus.Unavailable:
+        return 'gray';
+      default:
+        return 'blue';
+    }
   }
 
   // set the icon and greeting depending on time
@@ -90,21 +124,4 @@ export class Dashboard implements OnInit {
     }
   }
 
-  getSpotColor(spot: ParkingSpot): string {
-    return this.setParkingSpotColor(spot.status);
-  }
-
-  // set parking spot color based on parking spot status
-  setParkingSpotColor(status: SpotStatus): string {
-    switch (status) {
-      case SpotStatus.Free:
-        return 'green';
-      case SpotStatus.Occupied:
-        return 'red';
-      case SpotStatus.Unavailable:
-        return 'gray';
-      default:
-          return 'blue';
-    }
-  }
 }

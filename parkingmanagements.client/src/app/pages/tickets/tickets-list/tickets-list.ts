@@ -27,18 +27,7 @@ export class TicketsList implements OnInit {
   }
 
   loadTicket() {
-    this.ticketService.searchTickets({ status: 'Open'}).subscribe({
-      next: res => {
-        this.tickets = res.data;
-        this.loading = false;
-        console.log("Vehicle Type: "+this.VehicleType);
-      },
-      error: err => {
-        console.log('Failed to load tickets', err);
-        this.error = true;
-        this.loading = false;
-      }
-    })
+
   }
 
     getStatusLabel(status: TicketStatus): string {

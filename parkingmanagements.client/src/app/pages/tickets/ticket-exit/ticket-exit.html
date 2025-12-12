@@ -9,7 +9,7 @@
     <label>Ticket ID (optional)</label>
     <input type="text" [(ngModel)]="searchTicketId" placeholder="0000-0000..." />
 
-    <button (click)="searchTicket()" [disabled]="loading">Search</button>
+    <button [disabled]="loading">Search</button>
 
     <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
   </div>
@@ -22,7 +22,7 @@
     <p><strong>Spot:</strong> {{ foundTicket.spotCode }}</p>
     <p><strong>Entry Time:</strong> {{ foundTicket.entryTime | date:'HH:mm dd/MM/yyyy' }}</p>
 
-    <button (click)="previewExit()" [disabled]="loading">Preview Exit Fee</button>
+    <button  [disabled]="loading">Preview Exit Fee</button>
   </div>
 
   <!-- PREVIEW RESULT -->
@@ -31,7 +31,7 @@
 
     <p><strong>Duration:</strong> {{ preview.durationMinutes }} minutes</p>
     <p><strong>Billing Periods:</strong> {{ preview.billingPeriods }}</p>
-    <p><strong>Fee:</strong> {{ preview.appliedFee }} LEK</p>
+    <p><strong>Fee:</strong> {{ preview.appliedFee }} EUR</p>
 
     <label>Payment Method:</label>
     <select [(ngModel)]="paymentMethod">
@@ -45,7 +45,7 @@
       Lost Ticket
     </label>
 
-    <button (click)="closeTicket()" [disabled]="loading" class="confirmButton">
+    <button  [disabled]="loading" class="confirmButton">
       Close & Pay
     </button>
   </div>

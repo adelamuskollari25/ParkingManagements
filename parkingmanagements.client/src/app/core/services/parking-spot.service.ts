@@ -8,12 +8,14 @@ import { ParkingSpot } from '../models/parking-spot';
 })
 export class ParkingSpotService {
 
-  private baseUrl = `${environment.apiUrl}/lots`
+  private baseUrl = `${environment.apiUrl}/parkingSpots`
 
   constructor(private http: HttpClient) { }
 
   getParkingSpots(lotId: string) {
-    return this.http.get<{ data: ParkingSpot[] }>(`${this.baseUrl}/${lotId}/ParkingSpot`);
+    return this.http.get<ParkingSpot[]>(
+      `${this.baseUrl}?lotId=${lotId}`
+    );
   }
 
   create(lotId: string, data: Partial<ParkingSpot>) {
@@ -28,7 +30,10 @@ export class ParkingSpotService {
     return this.http.put<ParkingSpot>(`${this.baseUrl}/${lotId}/ParkingSpot/${spotId}`, data);
   }
 
-  updateStatus(lotId: string, spotId: string, status: string) {
-    return this.http.patch<ParkingSpot>(`${this.baseUrl}/${lotId}/ParkingSpot/${spotId}/status`, { status });
+  updateStatus(spotId: string, status: number) {
+    return this.http.patch<ParkingSpot>(
+      `${this.baseUrl}/${spotId}`,
+      { status }
+    );
   }
 }

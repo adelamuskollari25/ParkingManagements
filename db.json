@@ -1,0 +1,368 @@
+{
+  "parkingLots": [
+    {
+      "id": "lot-1",
+      "name": "Central Parking Lot",
+      "address": "123 Main Street",
+      "timezone": "UTC"
+    }
+  ],
+  "parkingSpots": [
+    {
+      "id": "spot-1",
+      "lotId": "lot-1",
+      "spotCode": "S01",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-2",
+      "lotId": "lot-1",
+      "spotCode": "S02",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-3",
+      "lotId": "lot-1",
+      "spotCode": "S03",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-4",
+      "lotId": "lot-1",
+      "spotCode": "S04",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-5",
+      "lotId": "lot-1",
+      "spotCode": "S05",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-6",
+      "lotId": "lot-1",
+      "spotCode": "S06",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-7",
+      "lotId": "lot-1",
+      "spotCode": "S07",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-8",
+      "lotId": "lot-1",
+      "spotCode": "S08",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-9",
+      "lotId": "lot-1",
+      "spotCode": "S09",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-10",
+      "lotId": "lot-1",
+      "spotCode": "S10",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-11",
+      "lotId": "lot-1",
+      "spotCode": "S11",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-12",
+      "lotId": "lot-1",
+      "spotCode": "S12",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-13",
+      "lotId": "lot-1",
+      "spotCode": "S13",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-14",
+      "lotId": "lot-1",
+      "spotCode": "S14",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-15",
+      "lotId": "lot-1",
+      "spotCode": "S15",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-16",
+      "lotId": "lot-1",
+      "spotCode": "S16",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-17",
+      "lotId": "lot-1",
+      "spotCode": "S17",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-18",
+      "lotId": "lot-1",
+      "spotCode": "S18",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-19",
+      "lotId": "lot-1",
+      "spotCode": "S19",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-20",
+      "lotId": "lot-1",
+      "spotCode": "S20",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-21",
+      "lotId": "lot-1",
+      "spotCode": "S21",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-22",
+      "lotId": "lot-1",
+      "spotCode": "S22",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-23",
+      "lotId": "lot-1",
+      "spotCode": "S23",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-24",
+      "lotId": "lot-1",
+      "spotCode": "S24",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-25",
+      "lotId": "lot-1",
+      "spotCode": "S25",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-26",
+      "lotId": "lot-1",
+      "spotCode": "S26",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-27",
+      "lotId": "lot-1",
+      "spotCode": "S27",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-28",
+      "lotId": "lot-1",
+      "spotCode": "S28",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-29",
+      "lotId": "lot-1",
+      "spotCode": "S29",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-30",
+      "lotId": "lot-1",
+      "spotCode": "S30",
+      "type": 1,
+      "status": 0
+    },
+    {
+      "id": "spot-31",
+      "lotId": "lot-1",
+      "spotCode": "S31",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-32",
+      "lotId": "lot-1",
+      "spotCode": "S32",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-33",
+      "lotId": "lot-1",
+      "spotCode": "S33",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-34",
+      "lotId": "lot-1",
+      "spotCode": "S34",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-35",
+      "lotId": "lot-1",
+      "spotCode": "S35",
+      "type": 2,
+      "status": 0
+    },
+    {
+      "id": "spot-36",
+      "lotId": "lot-1",
+      "spotCode": "S36",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-37",
+      "lotId": "lot-1",
+      "spotCode": "S37",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-38",
+      "lotId": "lot-1",
+      "spotCode": "S38",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-39",
+      "lotId": "lot-1",
+      "spotCode": "S39",
+      "type": 0,
+      "status": 0
+    },
+    {
+      "id": "spot-40",
+      "lotId": "lot-1",
+      "spotCode": "S40",
+      "type": 0,
+      "status": 0
+    }
+  ],
+  "tariffs": [
+    {
+      "id": "tariff-1",
+      "lotId": "lot-1",
+      "ratePerHour": 2.5,
+      "billingPeriodMinutes": 60,
+      "gracePeriodMinutes": 15,
+      "dailyMaximum": 20,
+      "lostTicketFee": 50,
+      "effectiveFrom": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "ticket-1",
+      "lotId": "lot-1",
+      "spotId": "spot-1",
+      "spotCode": "S01",
+      "vehicle": {
+        "plate": "AA111AA",
+        "type": 0,
+        "color": "Black"
+      },
+      "entryTime": "2025-12-11T07:00:00.000Z",
+      "exitTime": null,
+      "status": 0,
+      "computedAmount": null,
+      "isPaid": false,
+      "createdAt": "2025-12-11T07:00:00.000Z",
+      "updatedAt": "2025-12-11T07:00:00.000Z"
+    },
+    {
+      "id": "ticket-2",
+      "lotId": "lot-1",
+      "spotId": "spot-2",
+      "spotCode": "S02",
+      "vehicle": {
+        "plate": "AA222BB",
+        "type": 1,
+        "color": "White"
+      },
+      "entryTime": "2025-12-11T06:30:00.000Z",
+      "exitTime": "2025-12-11T08:30:00.000Z",
+      "status": 1,
+      "computedAmount": 5,
+      "isPaid": true,
+      "createdAt": "2025-12-11T06:30:00.000Z",
+      "updatedAt": "2025-12-11T08:30:00.000Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1",
+      "ticketId": "ticket-2",
+      "amount": 5,
+      "method": 0,
+      "paidAt": "2025-12-11T08:30:00.000Z",
+      "reference": "TICKET-2-CASH"
+    }
+  ],
+  "users": [
+    {
+      "id": "user-admin",
+      "email": "admin@parking.com",
+      "role": "Admin",
+      "active": true,
+      "password": "Admin123!"
+    },
+    {
+      "id": "user-attendant",
+      "email": "attendant@parking.com",
+      "role": "Attendant",
+      "active": true,
+      "password": "Attendant123!"
+    }
+  ]
+}
