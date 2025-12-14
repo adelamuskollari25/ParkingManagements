@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { CloseTicketRequest, CreateTicketRequest, Ticket, TicketPreview } from '../models/ticket';
+import { CloseTicketRequest, CreateTicketRequest, Ticket, TicketPreview, TicketStatus } from '../models/ticket';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class TicketService {
   createEntryTicket(data: CreateTicketRequest) {
     return this.http.post<Ticket>(this.baseUrl, {
       ...data,
-      status: 'Open',
+      status: TicketStatus.Open,
       entryTime: new Date().toISOString(),
       isPaid: false
     });

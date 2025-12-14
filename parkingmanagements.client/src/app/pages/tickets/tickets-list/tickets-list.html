@@ -4,14 +4,40 @@
     <!-- LOADING -->
     <p *ngIf="loading">Loading tickets...</p>
 
+    <p *ngIf="!loading && tickets.length === 0">
+      No tickets found.
+    </p>
+
     <!-- ERROR -->
     <p *ngIf="error">Failed to load tickets</p>
+
+    <div class="filters">
+
+      <!-- STATUS FILTER -->
+      <label>Status</label>
+      <select [(ngModel)]="statusFilter" (change)="loadFilteredTickets()">
+        <option value="ALL">All</option>
+        <option [value]="TicketStatus.Open">Open</option>
+        <option [value]="TicketStatus.Closed">Closed</option>
+        <option [value]="TicketStatus.Lost">Lost</option>
+      </select>
+
+      <!-- PLATE SEARCH -->
+      <label>Plate</label>
+      <input
+        type="text"
+        placeholder="Search by plate"
+        [(ngModel)]="plateFilter"
+        (input)="loadFilteredTickets()"
+      />
+
+    </div>
 
     <div class="ticketWrapper" *ngIf="!loading && !error">
       <div class="ticketListGrid">
           <div
             class="ticketElement"
-            *ngFor="let ticket of tickets">
+            *ngFor="let ticket of pagedTickets">
 
             <!-- SYMBOL -->
             <div class="parkingSymbol">
@@ -36,6 +62,12 @@
               </div>
 
               <div class="holder">
+                <p>Car Type:</p>
+                <p>{{ getVehicleTypeLabel(ticket.vehicle.type) }}</p>
+              </div>
+
+              <!--SPOT INFO-->
+              <div class="holder">
                 <p>Spot:</p>
                 <p>{{ ticket.spotCode }}</p>
               </div>
@@ -44,14 +76,20 @@
             <!-- TIME -->
             <div class="ticketDateData">
               <div class="date">
-                <p>FROM:</p>
-                <p>{{ ticket.entryTime | date:'HH:mm dd/MM/yyyy' }}</p>
+                <div class="entry time">
+                  <p>FROM:</p>
+                  <p>{{ ticket.entryTime | date:'HH:mm dd/MM/yyyy' }}</p>
+                </div>
+                <div
+                  class="exit time"
+                  *ngIf="ticket.status === TicketStatus.Closed">
+                  <p>TO:</p>
+                  <p>{{ ticket.exitTime | date:'HH:mm dd/MM/yyyy' }}</p>
+                </div>
+
               </div>
             </div>
 
-            <!--TODO: Get spot status string not number-->
-
-            <!-- STATUS -->
             <div class="ticketStatusHolder">
               <h3>{{ getStatusLabel(ticket.status) }}</h3>
             </div>
@@ -59,9 +97,27 @@
           </div>
       </div>
 
+      <div class="pagination" *ngIf="totalPages > 1">
+        <button
+          (click)="prevPage()"
+          [disabled]="currentPage === 1">
+        ◀ Prev
+        </button>
+
+        <span>
+          Page {{ currentPage }} / {{ totalPages }}
+        </span>
+
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages">
+          Next ▶
+        </button>
+
+      </div>
+
       <!-- ACTION BUTTONS -->
       <div class="actionButtons">
-        <!--TODO: If needed change the routerLink-->
           <button id="entryButton" type="button" routerLink="entry-ticket">ENTRY TICKET</button>
           <button id="exitButton" type="button" routerLink="exit-ticket">EXIT TICKET</button>
       </div>

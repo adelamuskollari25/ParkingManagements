@@ -34,7 +34,7 @@ export class Dashboard implements OnInit {
   openTickets = 0;
   revenueToday = 0;
 
-  //get date
+  // get date
   today: Date = new Date();
   greeting: string = '';
   icon: string = '';
