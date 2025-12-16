@@ -34,7 +34,7 @@
       "lotId": "lot-1",
       "spotCode": "S04",
       "type": 0,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-5",
@@ -48,7 +48,7 @@
       "lotId": "lot-1",
       "spotCode": "S06",
       "type": 0,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-7",
@@ -286,7 +286,7 @@
       "lotId": "lot-1",
       "spotCode": "S40",
       "type": 0,
-      "status": 0
+      "status": 2
     }
   ],
   "tariffs": [
