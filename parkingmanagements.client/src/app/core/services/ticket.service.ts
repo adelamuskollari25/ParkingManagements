@@ -17,14 +17,24 @@ export class TicketService {
   }
 
   // CREATE ENTRY TICKET
-  createEntryTicket(data: CreateTicketRequest) {
-    return this.http.post<Ticket>(this.baseUrl, {
-      ...data,
-      status: TicketStatus.Open,
-      entryTime: new Date().toISOString(),
-      isPaid: false
-    });
-  }
+  createEntryTicket(data: CreateTicketRequest & { spotCode: string }) {
+  return this.http.post<Ticket>(this.baseUrl, {
+    lotId: data.lotId,
+    spotId: data.spotId,
+    spotCode: data.spotCode,
+    vehicle: {
+      plate: data.plateNumber,
+      type: data.vehicleType,
+      color: data.color
+    },
+    status: TicketStatus.Open,
+    entryTime: new Date().toISOString(),
+    exitTime: null,
+    computedAmount: null,
+    isPaid: false
+  });
+}
+
 
   // CLOSE TICKET
   closeTicket(ticketId: string, update: Partial<Ticket>) {

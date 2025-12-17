@@ -41,7 +41,7 @@
       "lotId": "lot-1",
       "spotCode": "S05",
       "type": 0,
-      "status": 0
+      "status": 1
     },
     {
       "id": "spot-6",
@@ -337,6 +337,22 @@
       "isPaid": true,
       "createdAt": "2025-12-11T06:30:00.000Z",
       "updatedAt": "2025-12-11T08:30:00.000Z"
+    },
+    {
+      "lotId": "lot-1",
+      "spotId": "spot-5",
+      "spotCode": "S05",
+      "vehicle": {
+        "plate": "AA124CB",
+        "type": 2,
+        "color": "White"
+      },
+      "status": 0,
+      "entryTime": "2025-12-16T20:18:59.448Z",
+      "exitTime": null,
+      "computedAmount": null,
+      "isPaid": false,
+      "id": "p6Bzj31"
     }
   ],
   "payments": [

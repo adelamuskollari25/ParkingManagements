@@ -58,12 +58,12 @@
             <div class="ticketInfo">
               <div class="holder">
                 <p>Car Plate:</p>
-                <p>{{ ticket.vehicle.plate }}</p>
+                <p>{{ ticket.vehicle?.plate ?? '-' }}</p>
               </div>
 
               <div class="holder">
                 <p>Car Type:</p>
-                <p>{{ getVehicleTypeLabel(ticket.vehicle.type) }}</p>
+                <p>{{ getVehicleTypeLabel(ticket.vehicle?.type) }}</p>
               </div>
 
               <!--SPOT INFO-->

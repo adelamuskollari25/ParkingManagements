@@ -20,17 +20,22 @@ import { TicketService } from '../../../core/services/ticket.service';
 })
 export class TicketEntry implements OnInit {
 
-  selectedLot?: ParkingLot;
+  // Data
+  lots: ParkingLot[] = [];
   freeSpots: ParkingSpot[] = [];
+
+  selectedLotId = '';
   selectedSpotId = '';
 
-  vehiclePlate = '';
+  plate = '';
   vehicleType: VehicleType = VehicleType.Car;
-  vehicleColor = '';
+  color = '';
 
   loading = false;
+  error = '';
+  success = false;
 
-  VehicleType = VehicleType; //use it in the template
+  VehicleType = VehicleType;
 
   constructor(
     private lotService: ParkingLotService,
@@ -40,42 +45,98 @@ export class TicketEntry implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadLotAndSpots();
+    this.loadLots();
   }
 
-  isFreeSpot(spot: ParkingSpot): boolean {
-    // backend enum: 0 = Free
-    return spot.status === SpotStatus.Free;
+  // load parking lot
+  loadLots() {
+    this.lotService.getParkingLots().subscribe({
+      next: lots=> {
+        this.lots = lots;
+
+        if (lots.length) {
+          this.selectedLotId = lots[0].id;
+          this.loadFreeSpots();
+        }
+      },
+      error: ()=> {
+        this.error = 'Failed to load parking spots';
+      }
+    })
   }
 
-  loadLotAndSpots() {
+  loadFreeSpots() {
+    this.freeSpots = [];
+    this.selectedSpotId = '';
 
+    this.spotService.getParkingSpots(this.selectedLotId).subscribe({
+      next: spots=> {
+        this.freeSpots = spots.filter(
+          s => s.status === SpotStatus.Free
+        );
+
+        console.log('FREE spots:', this.freeSpots);
+      },
+      error: ()=> {
+        this.error = 'Failed to load parking spots.';
+      }
+    })
   }
 
+  get selectedSpot(): ParkingSpot | undefined {
+    return this.freeSpots.find(s => s.id === this.selectedSpotId);
+  }
+
+
+  // submit ticket
   createTicket() {
-    if (!this.selectedLot || !this.selectedSpotId || !this.vehiclePlate) {
-      alert('Please fill all required fields');
+    this.error = '';
+    this.loading = true;
+
+    const spot = this.selectedSpot;
+
+    if (!this.plate || !spot) {
+      this.error = 'Please fill all the required fields.';
+      this.loading = false;
       return;
     }
 
-    this.loading = true;
-
+    // create ticket
     this.ticketService.createEntryTicket({
-      lotId: this.selectedLot.id,
+      lotId: this.selectedLotId,
       spotId: this.selectedSpotId,
-      plateNumber: this.vehiclePlate,
+      spotCode: spot.spotCode,
+      plateNumber: this.plate,
       vehicleType: this.vehicleType,
-      color: this.vehicleColor
+      color: this.color || undefined
     }).subscribe({
       next: () => {
-        this.loading = false;
-        this.router.navigate(['/dashboard/ticket']);
+
+        // mark spot as occupied
+        this.spotService.updateStatus(
+          this.selectedSpotId,
+          SpotStatus.Occupied
+        ).subscribe({
+          next: ()=> {
+            this.loading = false;
+            this.success = true;
+
+            // redirect after short delay
+            setTimeout(()=> {
+              this.router.navigate(['/dashboard/ticket']);
+            }, 800);
+          },
+          error: ()=> {
+            this.error = 'Ticket created but failed to update spot.';
+            this.loading = false;
+          }
+        });
       },
-      error: err => {
-        console.error('Failed to create ticket', err);
+      error: ()=> {
+        this.error = 'Failed to create ticket.';
         this.loading = false;
       }
-    });
+    })
   }
 
 }

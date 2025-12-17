@@ -1,53 +1,68 @@
-<div class="entryTicketContainer">
-  <h1>ENTRY TICKET</h1>
+<div class="container">
 
-  <div class="entryTicketHolder">
+  <h2>Entry Ticket</h2>
 
-    <!-- LOT (DISPLAY ONLY) -->
-    <div class="formRow">
-      <label>Parking Lot</label>
-      <input type="text" [value]="selectedLot?.name" disabled />
-    </div>
+  <p class="error" *ngIf="error">{{ error }}</p>
+  <p class="success" *ngIf="success">Ticket created successfully!</p>
 
-    <!-- SPOT SELECT -->
-    <div class="formRow">
-      <label>Free Spot</label>
-      <select [(ngModel)]="selectedSpotId">
-        <option value="" disabled>Select spot</option>
+  <form (ngSubmit)="createTicket()">
+
+    <!-- LOT -->
+    <label>
+      Parking Lot
+      <select [(ngModel)]="selectedLotId" name="lot" (change)="loadFreeSpots()">
+        <option *ngFor="let lot of lots" [value]="lot.id">
+          {{ lot.name }}
+        </option>
+      </select>
+    </label>
+
+    <!-- SPOT -->
+    <label>
+      Free Spot
+      <select [(ngModel)]="selectedSpotId" name="spot">
+        <option value="">Select a free spot</option>
         <option *ngFor="let spot of freeSpots" [value]="spot.id">
           {{ spot.spotCode }}
         </option>
       </select>
-    </div>
+    </label>
 
-    <!-- VEHICLE PLATE -->
-    <div class="formRow">
-      <label>Vehicle Plate</label>
-      <input type="text" [(ngModel)]="vehiclePlate" placeholder="AA452ZB" />
-    </div>
+    <!-- PLATE -->
+    <label>
+      Plate Number
+      <input
+        type="text"
+        [(ngModel)]="plate"
+        name="plate"
+        placeholder="AA123BB"
+      />
+    </label>
 
     <!-- VEHICLE TYPE -->
-    <div class="formRow">
-      <label>Vehicle Type</label>
-      <select [(ngModel)]="vehicleType">
+    <label>
+      Vehicle Type
+      <select [(ngModel)]="vehicleType" name="vehicleType">
         <option [ngValue]="VehicleType.Car">Car</option>
         <option [ngValue]="VehicleType.Van">Van</option>
         <option [ngValue]="VehicleType.Motorcycle">Motorcycle</option>
       </select>
-    </div>
+    </label>
 
-    <!-- VEHICLE COLOR -->
-    <div class="formRow">
-      <label>Vehicle Color (optional)</label>
-      <input type="text" [(ngModel)]="vehicleColor" />
-    </div>
+    <!-- COLOR -->
+    <label>
+      Color (optional)
+      <input
+        type="text"
+        [(ngModel)]="color"
+        name="color"
+      />
+    </label>
 
-    <!-- ACTION -->
-    <div class="entryTicketButtonHolder">
-      <button (click)="createTicket()" [disabled]="loading">
-        {{ loading ? 'CREATING...' : 'ENTRY TICKET' }}
-      </button>
-    </div>
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Creating...' : 'Create Ticket' }}
+    </button>
 
-  </div>
+  </form>
+
 </div>
