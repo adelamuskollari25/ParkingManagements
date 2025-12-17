@@ -13,7 +13,7 @@
       "lotId": "lot-1",
       "spotCode": "S01",
       "type": 0,
-      "status": 1
+      "status": 0
     },
     {
       "id": "spot-2",
@@ -76,7 +76,7 @@
       "lotId": "lot-1",
       "spotCode": "S10",
       "type": 0,
-      "status": 0
+      "status": 1
     },
     {
       "id": "spot-11",
@@ -313,10 +313,10 @@
         "color": "Black"
       },
       "entryTime": "2025-12-11T07:00:00.000Z",
-      "exitTime": null,
-      "status": 0,
-      "computedAmount": null,
-      "isPaid": false,
+      "exitTime": "2025-12-17T19:04:45.261Z",
+      "status": 1,
+      "computedAmount": 312,
+      "isPaid": true,
       "createdAt": "2025-12-11T07:00:00.000Z",
       "updatedAt": "2025-12-11T07:00:00.000Z"
     },
@@ -353,6 +353,21 @@
       "computedAmount": null,
       "isPaid": false,
       "id": "p6Bzj31"
+    },
+    {
+      "lotId": "lot-1",
+      "spotId": "spot-10",
+      "spotCode": "S10",
+      "vehicle": {
+        "plate": "AB333CC",
+        "type": 0
+      },
+      "status": 0,
+      "entryTime": "2025-12-17T17:49:17.601Z",
+      "exitTime": null,
+      "computedAmount": null,
+      "isPaid": false,
+      "id": "_tMCLPc"
     }
   ],
   "payments": [

@@ -4,12 +4,25 @@
   <!-- SEARCH SECTION -->
   <div class="searchBox">
     <label>Plate Number</label>
-    <input type="text" [(ngModel)]="searchPlate" placeholder="AA452ZB" />
+    <input
+      type="text"
+      [(ngModel)]="searchPlate"
+      placeholder="AA452ZB"
+    />
 
     <label>Ticket ID (optional)</label>
-    <input type="text" [(ngModel)]="searchTicketId" placeholder="0000-0000..." />
+    <input
+      type="text"
+      [(ngModel)]="searchTicketId"
+      placeholder="0000-0000..."
+    />
 
-    <button [disabled]="loading">Search</button>
+    <button
+      (click)="searchTicket()"
+      [disabled]="loading"
+    >
+      Search
+    </button>
 
     <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
   </div>
@@ -20,9 +33,17 @@
 
     <p><strong>Plate:</strong> {{ foundTicket.vehicle.plate }}</p>
     <p><strong>Spot:</strong> {{ foundTicket.spotCode }}</p>
-    <p><strong>Entry Time:</strong> {{ foundTicket.entryTime | date:'HH:mm dd/MM/yyyy' }}</p>
+    <p>
+      <strong>Entry Time:</strong>
+      {{ foundTicket.entryTime | date:'HH:mm dd/MM/yyyy' }}
+    </p>
 
-    <button  [disabled]="loading">Preview Exit Fee</button>
+    <button
+      (click)="previewExit()"
+      [disabled]="loading"
+    >
+      Preview Exit Fee
+    </button>
   </div>
 
   <!-- PREVIEW RESULT -->
@@ -35,17 +56,25 @@
 
     <label>Payment Method:</label>
     <select [(ngModel)]="paymentMethod">
-      <option value="0">Cash</option>
-      <option value="1">Card</option>
-      <option value="2">Other</option>
+      <option [ngValue]="0">Cash</option>
+      <option [ngValue]="1">Card</option>
+      <option [ngValue]="2">Other</option>
     </select>
 
-    <label>
-      <input type="checkbox" [(ngModel)]="isLostTicket" />
+    <label class="lostTicket">
+      <input
+        type="checkbox"
+        [(ngModel)]="isLostTicket"
+        (change)="previewExit()"
+      />
       Lost Ticket
     </label>
 
-    <button  [disabled]="loading" class="confirmButton">
+    <button
+      (click)="closeTicket()"
+      [disabled]="loading"
+      class="confirmButton"
+    >
       Close & Pay
     </button>
   </div>
