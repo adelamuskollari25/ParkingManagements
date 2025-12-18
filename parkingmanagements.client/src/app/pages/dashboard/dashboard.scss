@@ -17,23 +17,6 @@
   margin-top: 50px;
 }
 
-.card {
-  min-width: 220px;
-  min-height: 100px;
-  align-self: center;
-  justify-self: center;
-  border: 1px solid black;
-  cursor: pointer;
-  transition: background-color 0.5s;
-
-  &:hover {
-    background-color: gray;
-  }
-
-  h4, p {
-    text-align: center;
-  }
-}
 
 // parking spot overview style
 .parking-grid {
