@@ -1,11 +1,14 @@
-<div class="container">
+<div class="page-container">
 
-  <h2>Parking Spots</h2>
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2>Parking Spots</h2>
+  </div>
 
   <!-- FILTERS -->
   <div class="filters">
     <label>
-      Status:
+      Status
       <select [(ngModel)]="statusFilter" (change)="applyFilters()">
         <option [ngValue]="'ALL'">All</option>
         <option [ngValue]="SpotStatus.Free">Free</option>
@@ -15,7 +18,7 @@
     </label>
 
     <label>
-      Type:
+      Type
       <select [(ngModel)]="typeFilter" (change)="applyFilters()">
         <option [ngValue]="'ALL'">All</option>
         <option [ngValue]="SpotType.Regular">Regular</option>
@@ -32,17 +35,34 @@
   <p class="error" *ngIf="error">{{ error }}</p>
 
   <!-- GRID -->
-  <div class="spots-grid" *ngIf="!loading && !error">
-    <div class="spot-card" *ngFor="let spot of filteredSpots">
+  <div class="card-grid" *ngIf="!loading && !error">
+    <div
+      class="card clickable spot-card"
+      *ngFor="let spot of filteredSpots"
+      [ngClass]="getStatusLabel(spot.status).toLowerCase()"
+    >
 
       <h3>{{ spot.spotCode }}</h3>
 
-      <p><strong>Type:</strong> {{ getTypeLabel(spot.type) }}</p>
-      <p><strong>Status:</strong> {{ getStatusLabel(spot.status) }}</p>
+      <p>
+        <strong>Type:</strong>
+        {{ getTypeLabel(spot.type) }}
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <span
+          class="status-badge"
+          [ngClass]="getStatusLabel(spot.status).toLowerCase()"
+        >
+          {{ getStatusLabel(spot.status) }}
+        </span>
+      </p>
 
       <button
         *ngIf="spot.status !== SpotStatus.Occupied"
-        (click)="toggleUnavailable(spot)">
+        (click)="toggleUnavailable(spot)"
+      >
         {{ spot.status === SpotStatus.Unavailable ? 'Mark Free' : 'Mark Unavailable' }}
       </button>
 
