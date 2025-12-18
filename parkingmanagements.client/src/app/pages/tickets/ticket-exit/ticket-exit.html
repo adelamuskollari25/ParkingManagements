@@ -19,12 +19,13 @@
 
     <button
       (click)="searchTicket()"
-      [disabled]="loading"
+      [disabled]="loading || (!searchPlate && !searchTicketId)"
     >
       Search
     </button>
 
     <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+    <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
   </div>
 
   <!-- TICKET FOUND -->
@@ -40,7 +41,7 @@
 
     <button
       (click)="previewExit()"
-      [disabled]="loading"
+      [disabled]="loading || !foundTicket"
     >
       Preview Exit Fee
     </button>
@@ -52,7 +53,7 @@
 
     <p><strong>Duration:</strong> {{ preview.durationMinutes }} minutes</p>
     <p><strong>Billing Periods:</strong> {{ preview.billingPeriods }}</p>
-    <p><strong>Fee:</strong> {{ preview.appliedFee }} EUR</p>
+    <p><strong>Fee (to pay):</strong> {{ preview.appliedFee }} EUR</p>
 
     <label>Payment Method:</label>
     <select [(ngModel)]="paymentMethod">
@@ -65,6 +66,7 @@
       <input
         type="checkbox"
         [(ngModel)]="isLostTicket"
+        [disabled] = "!foundTicket"
         (change)="previewExit()"
       />
       Lost Ticket
@@ -72,10 +74,11 @@
 
     <button
       (click)="closeTicket()"
-      [disabled]="loading"
+      [disabled]="loading || !preview"
       class="confirmButton"
     >
       Close & Pay
     </button>
+
   </div>
 </div>

@@ -33,7 +33,17 @@ export class TicketExit {
 
   loading = false;
   errorMsg = '';
+  successMsg = '';
 
+
+  resetForm() {
+    this.searchPlate = '';
+    this.searchTicketId = '';
+    this.foundTicket = undefined;
+    this.preview = undefined;
+    this.isLostTicket = false;
+    this.paymentMethod = PaymentMethod.Cash;
+  }
 
   constructor(
     private ticketService: TicketService,
@@ -72,7 +82,9 @@ export class TicketExit {
       }).subscribe({
         next: tickets => {
           const match = tickets.find(
-            t => t.vehicle?.plate === this.searchPlate
+            t =>
+              t.status === TicketStatus.Open &&
+              t.vehicle?.plate?.toUpperCase() === this.searchPlate.toUpperCase()
           );
 
           if (!match) {
@@ -147,8 +159,11 @@ export class TicketExit {
         ).subscribe({
           next: ()=> {
             this.loading = false;
-            alert('Ticket closed successfully!');
-            this.router.navigate(['/dashboard/ticket']);
+            this.successMsg = 'Ticket closed successfully.';
+            this.resetForm();
+            setTimeout(()=>{
+              this.router.navigate(['/dashboard/ticket']);
+            }, 800);
           },
           error: ()=> {
             this.errorMsg = 'Ticket closed, but failed to free spot.';
@@ -162,4 +177,5 @@ export class TicketExit {
       }
     })
   }
+
 }

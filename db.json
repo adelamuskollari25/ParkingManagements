@@ -20,7 +20,7 @@
       "lotId": "lot-1",
       "spotCode": "S02",
       "type": 0,
-      "status": 0
+      "status": 1
     },
     {
       "id": "spot-3",
@@ -41,7 +41,7 @@
       "lotId": "lot-1",
       "spotCode": "S05",
       "type": 0,
-      "status": 1
+      "status": 0
     },
     {
       "id": "spot-6",
@@ -76,7 +76,7 @@
       "lotId": "lot-1",
       "spotCode": "S10",
       "type": 0,
-      "status": 1
+      "status": 0
     },
     {
       "id": "spot-11",
@@ -347,11 +347,11 @@
         "type": 2,
         "color": "White"
       },
-      "status": 0,
+      "status": 1,
       "entryTime": "2025-12-16T20:18:59.448Z",
-      "exitTime": null,
-      "computedAmount": null,
-      "isPaid": false,
+      "exitTime": "2025-12-18T11:50:30.962Z",
+      "computedAmount": 80,
+      "isPaid": true,
       "id": "p6Bzj31"
     },
     {
@@ -362,12 +362,42 @@
         "plate": "AB333CC",
         "type": 0
       },
-      "status": 0,
+      "status": 1,
       "entryTime": "2025-12-17T17:49:17.601Z",
+      "exitTime": "2025-12-18T10:45:33.668Z",
+      "computedAmount": 50,
+      "isPaid": true,
+      "id": "_tMCLPc"
+    },
+    {
+      "lotId": "lot-1",
+      "spotId": "spot-1",
+      "spotCode": "S01",
+      "vehicle": {
+        "plate": "aa225vz",
+        "type": 2
+      },
+      "status": 1,
+      "entryTime": "2025-12-18T10:57:17.087Z",
+      "exitTime": "2025-12-18T10:59:49.569Z",
+      "computedAmount": 0,
+      "isPaid": true,
+      "id": "fJIsV1A"
+    },
+    {
+      "lotId": "lot-1",
+      "spotId": "spot-2",
+      "spotCode": "S02",
+      "vehicle": {
+        "plate": "AA981WW",
+        "type": 0
+      },
+      "status": 0,
+      "entryTime": "2025-12-18T11:48:17.104Z",
       "exitTime": null,
       "computedAmount": null,
       "isPaid": false,
-      "id": "_tMCLPc"
+      "id": "WzWSTyo"
     }
   ],
   "payments": [
