@@ -1,4 +1,4 @@
-<div class="page-container">
+<div class="container">
 
   <!-- HEADER -->
   <div class="page-header">
@@ -6,26 +6,38 @@
   </div>
 
   <!-- FILTERS -->
-  <div class="filters">
-    <label>
-      Status
-      <select [(ngModel)]="statusFilter" (change)="applyFilters()">
-        <option [ngValue]="'ALL'">All</option>
-        <option [ngValue]="SpotStatus.Free">Free</option>
-        <option [ngValue]="SpotStatus.Occupied">Occupied</option>
-        <option [ngValue]="SpotStatus.Unavailable">Unavailable</option>
-      </select>
-    </label>
+  <div class="filter-bar">
+    <button
+      class="filter-btn"
+      [class.active]="statusFilter === 'ALL'"
+      (click)="statusFilter='ALL'; applyFilters()"
+    >
+      All
+    </button>
 
-    <label>
-      Type
-      <select [(ngModel)]="typeFilter" (change)="applyFilters()">
-        <option [ngValue]="'ALL'">All</option>
-        <option [ngValue]="SpotType.Regular">Regular</option>
-        <option [ngValue]="SpotType.EV">EV</option>
-        <option [ngValue]="SpotType.Disabled">Disabled</option>
-      </select>
-    </label>
+    <button
+      class="filter-btn badge--green"
+      [class.active]="statusFilter === SpotStatus.Free"
+      (click)="statusFilter=SpotStatus.Free; applyFilters()"
+    >
+      Free
+    </button>
+
+    <button
+      class="filter-btn badge--red"
+      [class.active]="statusFilter === SpotStatus.Occupied"
+      (click)="statusFilter=SpotStatus.Occupied; applyFilters()"
+    >
+      Occupied
+    </button>
+
+    <button
+      class="filter-btn badge--orange"
+      [class.active]="statusFilter === SpotStatus.Unavailable"
+      (click)="statusFilter=SpotStatus.Unavailable; applyFilters()"
+    >
+      Unavailable
+    </button>
   </div>
 
   <!-- LOADING -->
@@ -37,9 +49,13 @@
   <!-- GRID -->
   <div class="card-grid" *ngIf="!loading && !error">
     <div
-      class="card clickable spot-card"
+      class="card clickable"
       *ngFor="let spot of filteredSpots"
-      [ngClass]="getStatusLabel(spot.status).toLowerCase()"
+      [ngClass]="{
+        'card--free': spot.status === SpotStatus.Free,
+        'card--occupied': spot.status === SpotStatus.Occupied,
+        'card--unavailable': spot.status === SpotStatus.Unavailable
+      }"
     >
 
       <h3>{{ spot.spotCode }}</h3>
@@ -52,14 +68,19 @@
       <p>
         <strong>Status:</strong>
         <span
-          class="status-badge"
-          [ngClass]="getStatusLabel(spot.status).toLowerCase()"
+          class="badge"
+          [ngClass]="{
+            'badge--green': spot.status === SpotStatus.Free,
+            'badge--red': spot.status === SpotStatus.Occupied,
+            'badge--orange': spot.status === SpotStatus.Unavailable
+          }"
         >
           {{ getStatusLabel(spot.status) }}
         </span>
       </p>
 
       <button
+        class="btn"
         *ngIf="spot.status !== SpotStatus.Occupied"
         (click)="toggleUnavailable(spot)"
       >

@@ -59,6 +59,26 @@
   font-weight: 600;
 }
 
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  background: #eee;
+}
+
+.btn--danger {
+  background: rgba(231, 76, 60, 0.15);
+  color: $color-danger;
+}
+
+.btn--success {
+  background: rgba(46, 204, 113, 0.15);
+  color: $color-primary;
+}
+
+
 .clickable {
   cursor: pointer;
 }

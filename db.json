@@ -13,7 +13,7 @@
       "lotId": "lot-1",
       "spotCode": "S01",
       "type": 0,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-2",
@@ -34,7 +34,7 @@
       "lotId": "lot-1",
       "spotCode": "S04",
       "type": 0,
-      "status": 2
+      "status": 0
     },
     {
       "id": "spot-5",
@@ -48,7 +48,7 @@
       "lotId": "lot-1",
       "spotCode": "S06",
       "type": 0,
-      "status": 2
+      "status": 0
     },
     {
       "id": "spot-7",
@@ -76,7 +76,7 @@
       "lotId": "lot-1",
       "spotCode": "S10",
       "type": 0,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-11",
@@ -244,7 +244,7 @@
       "lotId": "lot-1",
       "spotCode": "S34",
       "type": 2,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-35",
@@ -286,7 +286,7 @@
       "lotId": "lot-1",
       "spotCode": "S40",
       "type": 0,
-      "status": 2
+      "status": 0
     }
   ],
   "tariffs": [
