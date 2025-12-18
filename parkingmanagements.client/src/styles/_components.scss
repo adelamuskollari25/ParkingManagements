@@ -1,0 +1,60 @@
+/* _components.scss */
+
+.card {
+  background: $color-card;
+  padding: 15px;
+  border-radius: $radius;
+  box-shadow: $shadow-sm;
+}
+
+/* Status cards */
+.card--free {
+  border-left: 6px solid $color-primary;
+}
+
+.card--occupied {
+  border-left: 6px solid $color-danger;
+}
+
+.card--unavailable {
+  border-left: 6px solid $color-warning;
+}
+
+/* Badges */
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge--green {
+  background: rgba(46, 204, 113, 0.15);
+  color: $color-primary;
+}
+
+.badge--red {
+  background: rgba(231, 76, 60, 0.15);
+  color: $color-danger;
+}
+
+.badge--orange {
+  background: rgba(243, 156, 18, 0.15);
+  color: $color-warning;
+}
+
+/* Filters */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #eee;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
