@@ -1,68 +1,69 @@
-<div class="container">
+<div class="page-container">
 
-  <h2>Entry Ticket</h2>
+  <div class="page-header">
+    <h2>Entry Ticket</h2>
+  </div>
 
-  <p class="error" *ngIf="error">{{ error }}</p>
-  <p class="success" *ngIf="success">Ticket created successfully!</p>
+  <div class="card">
 
-  <form (ngSubmit)="createTicket()">
+    <p class="error" *ngIf="error">{{ error }}</p>
+    <p class="success" *ngIf="success">Ticket created successfully!</p>
 
-    <!-- LOT -->
-    <label>
-      Parking Lot
-      <select [(ngModel)]="selectedLotId" name="lot" (change)="loadFreeSpots()">
-        <option *ngFor="let lot of lots" [value]="lot.id">
-          {{ lot.name }}
-        </option>
-      </select>
-    </label>
+    <form (ngSubmit)="createTicket()" class="form-grid">
 
-    <!-- SPOT -->
-    <label>
-      Free Spot
-      <select [(ngModel)]="selectedSpotId" name="spot">
-        <option value="">Select a free spot</option>
-        <option *ngFor="let spot of freeSpots" [value]="spot.id">
-          {{ spot.spotCode }}
-        </option>
-      </select>
-    </label>
+      <!-- LOT -->
+      <label>
+        Parking Lot
+        <select [(ngModel)]="selectedLotId" name="lot" (change)="loadFreeSpots()">
+          <option *ngFor="let lot of lots" [value]="lot.id">
+            {{ lot.name }}
+          </option>
+        </select>
+      </label>
 
-    <!-- PLATE -->
-    <label>
-      Plate Number
-      <input
-        type="text"
-        [(ngModel)]="plate"
-        name="plate"
-        placeholder="AA123BB"
-      />
-    </label>
+      <!-- SPOT -->
+      <label>
+        Free Spot
+        <select [(ngModel)]="selectedSpotId" name="spot">
+          <option value="">Select a free spot</option>
+          <option *ngFor="let spot of freeSpots" [value]="spot.id">
+            {{ spot.spotCode }}
+          </option>
+        </select>
+      </label>
 
-    <!-- VEHICLE TYPE -->
-    <label>
-      Vehicle Type
-      <select [(ngModel)]="vehicleType" name="vehicleType">
-        <option [ngValue]="VehicleType.Car">Car</option>
-        <option [ngValue]="VehicleType.Van">Van</option>
-        <option [ngValue]="VehicleType.Motorcycle">Motorcycle</option>
-      </select>
-    </label>
+      <!-- PLATE -->
+      <label>
+        Plate Number
+        <input
+          type="text"
+          [(ngModel)]="plate"
+          name="plate"
+          placeholder="AA123BB"
+        />
+      </label>
 
-    <!-- COLOR -->
-    <label>
-      Color (optional)
-      <input
-        type="text"
-        [(ngModel)]="color"
-        name="color"
-      />
-    </label>
+      <!-- VEHICLE TYPE -->
+      <label>
+        Vehicle Type
+        <select [(ngModel)]="vehicleType" name="vehicleType">
+          <option [ngValue]="VehicleType.Car">Car</option>
+          <option [ngValue]="VehicleType.Van">Van</option>
+          <option [ngValue]="VehicleType.Motorcycle">Motorcycle</option>
+        </select>
+      </label>
 
-    <button type="submit" [disabled]="loading">
-      {{ loading ? 'Creating...' : 'Create Ticket' }}
-    </button>
+      <!-- COLOR -->
+      <label>
+        Color (optional)
+        <input type="text" [(ngModel)]="color" name="color" />
+      </label>
 
-  </form>
+      <button class="btn btn--success" type="submit" [disabled]="loading">
+        {{ loading ? 'Creating...' : 'Create Ticket' }}
+      </button>
+
+    </form>
+  </div>
 
 </div>

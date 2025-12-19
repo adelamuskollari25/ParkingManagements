@@ -78,6 +78,66 @@
   color: $color-primary;
 }
 
+.ticket-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-input {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-weight: 600;
+}
+
+/* Forms */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+input,
+select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: $color-primary;
+}
+
+.success {
+  background: rgba(46, 204, 113, 0.15);
+  color: $color-primary;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.error {
+  background: rgba(231, 76, 60, 0.15);
+  color: $color-danger;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+
 
 .clickable {
   cursor: pointer;

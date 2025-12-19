@@ -1,35 +1,52 @@
-<div class="exitTicketContainer">
-  <h1>EXIT TICKET</h1>
+<div class="page-container">
 
-  <!-- SEARCH SECTION -->
-  <div class="searchBox">
-    <label>Plate Number</label>
-    <input
-      type="text"
-      [(ngModel)]="searchPlate"
-      placeholder="AA452ZB"
-    />
+  <!-- HEADER -->
+  <div class="page-header">
+    <h2>Exit Ticket</h2>
+  </div>
 
-    <label>Ticket ID (optional)</label>
-    <input
-      type="text"
-      [(ngModel)]="searchTicketId"
-      placeholder="0000-0000..."
-    />
+  <!-- SEARCH CARD -->
+  <div class="card">
 
-    <button
-      (click)="searchTicket()"
-      [disabled]="loading || (!searchPlate && !searchTicketId)"
-    >
-      Search
-    </button>
+    <form class="form-grid" (ngSubmit)="searchTicket()">
+
+      <label>
+        Plate Number
+        <input
+          type="text"
+          [(ngModel)]="searchPlate"
+          name="plate"
+          placeholder="AA452ZB"
+        />
+      </label>
+
+      <label>
+        Ticket ID (optional)
+        <input
+          type="text"
+          [(ngModel)]="searchTicketId"
+          name="ticketId"
+          placeholder="0000-0000..."
+        />
+      </label>
+
+      <button
+        type="submit"
+        class="btn"
+        [disabled]="loading || (!searchPlate && !searchTicketId)"
+      >
+        Search
+      </button>
+
+    </form>
 
     <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
     <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
   </div>
 
   <!-- TICKET FOUND -->
-  <div class="ticketResult" *ngIf="foundTicket">
+  <div class="card" *ngIf="foundTicket">
+
     <h3>Ticket Found</h3>
 
     <p><strong>Plate:</strong> {{ foundTicket.vehicle.plate }}</p>
@@ -40,45 +57,55 @@
     </p>
 
     <button
+      class="btn"
       (click)="previewExit()"
-      [disabled]="loading || !foundTicket"
+      [disabled]="loading"
     >
       Preview Exit Fee
     </button>
   </div>
 
   <!-- PREVIEW RESULT -->
-  <div class="previewBox" *ngIf="preview">
+  <div class="card" *ngIf="preview">
+
     <h3>Exit Preview</h3>
 
     <p><strong>Duration:</strong> {{ preview.durationMinutes }} minutes</p>
     <p><strong>Billing Periods:</strong> {{ preview.billingPeriods }}</p>
-    <p><strong>Fee (to pay):</strong> {{ preview.appliedFee }} EUR</p>
+    <p>
+      <strong>Fee:</strong>
+      <span class="badge badge--orange">
+        {{ preview.appliedFee }} EUR
+      </span>
+    </p>
 
-    <label>Payment Method:</label>
-    <select [(ngModel)]="paymentMethod">
-      <option [ngValue]="0">Cash</option>
-      <option [ngValue]="1">Card</option>
-      <option [ngValue]="2">Other</option>
-    </select>
+    <label>
+      Payment Method
+      <select [(ngModel)]="paymentMethod" name="payment">
+        <option [ngValue]="0">Cash</option>
+        <option [ngValue]="1">Card</option>
+        <option [ngValue]="2">Other</option>
+      </select>
+    </label>
 
     <label class="lostTicket">
       <input
         type="checkbox"
         [(ngModel)]="isLostTicket"
-        [disabled] = "!foundTicket"
+        name="lost"
         (change)="previewExit()"
       />
       Lost Ticket
     </label>
 
     <button
+      class="btn btn--danger"
       (click)="closeTicket()"
-      [disabled]="loading || !preview"
-      class="confirmButton"
+      [disabled]="loading"
     >
       Close & Pay
     </button>
 
   </div>
+
 </div>

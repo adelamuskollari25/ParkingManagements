@@ -1,3 +1,17 @@
+.ticket-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-input {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-weight: 600;
+}
+
+
 .ticketListContainer {
     h1 {
         text-align: center;
@@ -108,6 +122,10 @@
     p {
         margin: 2px 0;
     }
+
+    #vehiclePlate {
+      text-transform: uppercase;
+    }
 }
 
 /* date info style */
@@ -116,6 +134,7 @@
     border-bottom: 1px solid black;
     margin: 10px 0;
 }
+
 .date {
     display: flex;
     flex-direction: column;
@@ -139,42 +158,5 @@
         text-align: center;
         color: white;
         letter-spacing: 5px;
-    }
-}
-
-/* action buttons style */
-.actionButtons {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    max-width: inherit;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    z-index: 1000;
-
-    #entryButton {
-        background-color: green;
-    }
-
-    #exitButton {
-        background-color: red;
-    }
-}
-
-.actionButtons button {
-    flex: 1;  // makes them grow evenly
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 10px;
-    border: none;
-    color: white;
-    letter-spacing: 5px;
-    cursor: pointer;
-
-    &:hover {
-        box-shadow: 5px 5px 10px rgb(0, 0, 0);
     }
 }

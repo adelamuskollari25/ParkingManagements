@@ -1,4 +1,4 @@
-<div class="ticketListContainer">
+<div class="container">
     <h1>Ticket List</h1>
 
     <!-- LOADING -->
@@ -11,33 +11,61 @@
     <!-- ERROR -->
     <p *ngIf="error">Failed to load tickets</p>
 
-    <div class="filters">
+  <div class="filter-bar">
+    <button
+      class="filter-btn"
+      [class.active]="statusFilter === 'ALL'"
+      (click)="statusFilter='ALL'; loadFilteredTickets()"
+    >
+      All
+    </button>
 
-      <!-- STATUS FILTER -->
-      <label>Status</label>
-      <select [(ngModel)]="statusFilter" (change)="loadFilteredTickets()">
-        <option value="ALL">All</option>
-        <option [value]="TicketStatus.Open">Open</option>
-        <option [value]="TicketStatus.Closed">Closed</option>
-        <option [value]="TicketStatus.Lost">Lost</option>
-      </select>
+    <button
+      class="filter-btn badge--green"
+      [class.active]="statusFilter === TicketStatus.Open"
+      (click)="statusFilter=TicketStatus.Open; loadFilteredTickets()"
+    >
+      Open
+    </button>
 
-      <!-- PLATE SEARCH -->
-      <label>Plate</label>
-      <input
-        type="text"
-        placeholder="Search by plate"
-        [(ngModel)]="plateFilter"
-        (input)="loadFilteredTickets()"
-      />
+    <button
+      class="filter-btn badge--red"
+      [class.active]="statusFilter === TicketStatus.Closed"
+      (click)="statusFilter=TicketStatus.Closed; loadFilteredTickets()"
+    >
+      Closed
+    </button>
 
-    </div>
+    <button
+      class="filter-btn badge--orange"
+      [class.active]="statusFilter === TicketStatus.Lost"
+      (click)="statusFilter=TicketStatus.Lost; loadFilteredTickets()"
+    >
+      Lost
+    </button>
 
-    <div class="ticketWrapper" *ngIf="!loading && !error">
-      <div class="ticketListGrid">
+    <input
+      class="filter-input"
+      type="text"
+      placeholder="Search plate"
+      [(ngModel)]="plateFilter"
+      (input)="loadFilteredTickets()"
+    />
+  </div>
+
+
+<div class="ticketWrapper" *ngIf="!loading && !error">
+
+  <div class="ticketListGrid">
           <div
-            class="ticketElement"
-            *ngFor="let ticket of pagedTickets">
+            class="card clickable ticket-card"
+            *ngFor="let ticket of pagedTickets"
+            [ngClass]="{
+              'card--free': ticket.status === TicketStatus.Open,
+              'card--occupied': ticket.status === TicketStatus.Closed,
+              'card--unavailable': ticket.status === TicketStatus.Lost
+            }"
+          >
 
             <!-- SYMBOL -->
             <div class="parkingSymbol">
@@ -57,13 +85,13 @@
             <!-- VEHICLE INFO -->
             <div class="ticketInfo">
               <div class="holder">
-                <p>Car Plate:</p>
-                <p>{{ ticket.vehicle.plate }}</p>
+                <p>Vehicle Plate:</p>
+                <p id="vehiclePlate">{{ ticket.vehicle.plate }}</p>
               </div>
 
               <div class="holder">
-                <p>Car Type:</p>
-                <p>{{ getVehicleTypeLabel(ticket.vehicle.type) }}</p>
+                <p>Vehicle Type:</p>
+                <p id="vehicleTypeLabel">{{ getVehicleTypeLabel(ticket.vehicle.type) }}</p>
               </div>
 
               <!--SPOT INFO-->
@@ -91,35 +119,44 @@
             </div>
 
             <div class="ticketStatusHolder">
-              <h3>{{ getStatusLabel(ticket.status) }}</h3>
+              <span
+                class="badge"
+                [ngClass]="{
+                  'badge--green': ticket.status === TicketStatus.Open,
+                  'badge--red': ticket.status === TicketStatus.Closed,
+                  'badge--orange': ticket.status === TicketStatus.Lost
+                }"
+              >
+                {{ getStatusLabel(ticket.status) }}
+              </span>
             </div>
 
-          </div>
+  </div>
+</div>
 
-                <div class="pagination" *ngIf="totalPages > 1">
-        <button
-          (click)="prevPage()"
-          [disabled]="currentPage === 1">
-        ◀ Prev
-        </button>
+      <!--PAGINATION-->
+        <div class="pagination" *ngIf="totalPages > 1">
+          <button class="btn" (click)="prevPage()" [disabled]="currentPage === 1">
+            ◀ Prev
+          </button>
 
-        <span>
-          Page {{ currentPage }} / {{ totalPages }}
-        </span>
+          <span>Page {{ currentPage }} / {{ totalPages }}</span>
 
-        <button
-          (click)="nextPage()"
-          [disabled]="currentPage === totalPages">
-          Next ▶
-        </button>
-
-      </div>
-      </div>
+          <button class="btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            Next ▶
+          </button>
+        </div>
 
       <!-- ACTION BUTTONS -->
       <div class="actionButtons">
-          <button id="entryButton" type="button" routerLink="entry-ticket">ENTRY TICKET</button>
-          <button id="exitButton" type="button" routerLink="exit-ticket">EXIT TICKET</button>
+        <button class="btn btn--success" routerLink="entry-ticket">
+          Entry Ticket
+        </button>
+
+        <button class="btn btn--danger" routerLink="exit-ticket">
+          Exit Ticket
+        </button>
       </div>
+
     </div>
 </div>

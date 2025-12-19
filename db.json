@@ -20,7 +20,7 @@
       "lotId": "lot-1",
       "spotCode": "S02",
       "type": 0,
-      "status": 1
+      "status": 0
     },
     {
       "id": "spot-3",
@@ -34,7 +34,7 @@
       "lotId": "lot-1",
       "spotCode": "S04",
       "type": 0,
-      "status": 0
+      "status": 1
     },
     {
       "id": "spot-5",
@@ -392,12 +392,28 @@
         "plate": "AA981WW",
         "type": 0
       },
-      "status": 0,
+      "status": 1,
       "entryTime": "2025-12-18T11:48:17.104Z",
+      "exitTime": "2025-12-18T23:58:58.630Z",
+      "computedAmount": 50,
+      "isPaid": true,
+      "id": "WzWSTyo"
+    },
+    {
+      "lotId": "lot-1",
+      "spotId": "spot-4",
+      "spotCode": "S04",
+      "vehicle": {
+        "plate": "ac5980wc",
+        "type": 0,
+        "color": "black"
+      },
+      "status": 0,
+      "entryTime": "2025-12-18T23:54:36.987Z",
       "exitTime": null,
       "computedAmount": null,
       "isPaid": false,
-      "id": "WzWSTyo"
+      "id": "RpLa5EM"
     }
   ],
   "payments": [
