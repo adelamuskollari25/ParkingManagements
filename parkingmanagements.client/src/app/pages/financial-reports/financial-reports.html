@@ -1,1 +1,70 @@
-<p>financial-reports works!</p>
+<div class="container">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <h2>Financial Overview</h2>
+    <p class="subtitle">Revenue & ticket performance</p>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="card-grid">
+
+    <div class="card card--free">
+      <h4>Total Revenue</h4>
+      <p class="kpi-value">{{ totalRevenue }} €</p>
+    </div>
+
+    <div class="card">
+      <h4>Revenue Today</h4>
+      <p class="kpi-value">{{ revenueToday }} €</p>
+    </div>
+
+    <div class="card">
+      <h4>Last 7 Days</h4>
+      <p class="kpi-value">{{ revenueLast7Days }} €</p>
+    </div>
+
+    <div class="card">
+      <h4>This Month</h4>
+      <p class="kpi-value">{{ revenueThisMonth }} €</p>
+    </div>
+
+  </div>
+
+  <!-- REVENUE TABLE -->
+  <div class="card table-card">
+
+    <h3>Paid Tickets</h3>
+
+    <p *ngIf="loading">Loading revenue data...</p>
+    <p *ngIf="!loading && paidTickets.length === 0">
+      No paid tickets found.
+    </p>
+
+    <table *ngIf="!loading && paidTickets.length">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Plate</th>
+          <th>Spot</th>
+          <th>Amount (€)</th>
+          <th>Payment</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let ticket of paidTickets">
+          <td>{{ ticket.exitTime | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td id="vehiclePlate">{{ ticket.vehicle.plate }}</td>
+          <td>{{ ticket.spotCode }}</td>
+          <td><strong>{{ ticket.computedAmount }}</strong></td>
+          <td>
+            <span class="badge badge--green">Paid</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

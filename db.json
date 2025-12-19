@@ -34,7 +34,7 @@
       "lotId": "lot-1",
       "spotCode": "S04",
       "type": 0,
-      "status": 1
+      "status": 0
     },
     {
       "id": "spot-5",
@@ -408,11 +408,11 @@
         "type": 0,
         "color": "black"
       },
-      "status": 0,
+      "status": 1,
       "entryTime": "2025-12-18T23:54:36.987Z",
-      "exitTime": null,
-      "computedAmount": null,
-      "isPaid": false,
+      "exitTime": "2025-12-19T00:15:31.253Z",
+      "computedAmount": 2,
+      "isPaid": true,
       "id": "RpLa5EM"
     }
   ],

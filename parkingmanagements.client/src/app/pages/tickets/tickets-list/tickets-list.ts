@@ -26,7 +26,7 @@ export class TicketsList implements OnInit {
 
   // pagination
   currentPage = 1;
-  pageSize = 5;
+  pageSize = 6;
 
   constructor (private ticketService: TicketService) {}
 

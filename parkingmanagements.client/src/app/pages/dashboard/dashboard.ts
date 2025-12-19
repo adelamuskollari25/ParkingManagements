@@ -81,10 +81,24 @@ export class Dashboard implements OnInit {
   loadTickets() {
     if (!this.selectedLot) return;
 
-    this.ticketService.searchTickets({ status: 0 }).subscribe(tickets => {
+    this.ticketService.searchTickets({ lotId: this.selectedLot.id }).subscribe(tickets => {
       this.tickets = tickets;
-      this.openTickets = tickets.length;
-      console.log('Ticket length: ', tickets.length);
+      this.openTickets = tickets.filter(
+        t=> t.status === 0
+      ).length;
+
+      // revenue
+      const today = new Date();
+      today.setHours(0,0,0,0);
+
+      this.revenueToday = tickets.filter(
+        t=> t.status === 1 &&
+        t.isPaid === true &&
+        t.exitTime &&
+        new Date(t.exitTime).setHours(0,0,0,0) === today.getTime()
+      ).reduce((sum, t)=> sum = (t.computedAmount ?? 0), 0);
+      //this.openTickets = tickets.length;
+      //console.log('Ticket length: ', tickets.length);
       this.loading = false;
     });
   }
