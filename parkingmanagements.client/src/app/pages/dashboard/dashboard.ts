@@ -96,24 +96,9 @@ export class Dashboard implements OnInit {
         t.isPaid === true &&
         t.exitTime &&
         new Date(t.exitTime).setHours(0,0,0,0) === today.getTime()
-      ).reduce((sum, t)=> sum = (t.computedAmount ?? 0), 0);
-      //this.openTickets = tickets.length;
-      //console.log('Ticket length: ', tickets.length);
+      ).reduce((sum, t)=> sum += (t.computedAmount ?? 0), 0);
       this.loading = false;
     });
-  }
-
-  getSpotColor(spot: ParkingSpot): string {
-    switch (spot.status) {
-      case SpotStatus.Free:
-        return 'green';
-      case SpotStatus.Occupied:
-        return 'red';
-      case SpotStatus.Unavailable:
-        return 'gray';
-      default:
-        return 'blue';
-    }
   }
 
   // set the icon and greeting depending on time

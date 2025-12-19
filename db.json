@@ -20,7 +20,7 @@
       "lotId": "lot-1",
       "spotCode": "S02",
       "type": 0,
-      "status": 0
+      "status": 2
     },
     {
       "id": "spot-3",

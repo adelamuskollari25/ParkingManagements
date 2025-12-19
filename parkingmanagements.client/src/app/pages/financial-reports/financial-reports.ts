@@ -31,7 +31,7 @@ export class FinancialReports implements OnInit {
   loadRevenue() {
     this.ticketService.searchTickets().subscribe(tickets => {
       const paid = tickets.filter(
-        t => t.status === 1 && t.isPaid && t.computedAmount
+        t => t.status === 1 && t.isPaid && t.computedAmount != null
       );
 
       this.paidTickets = paid;
